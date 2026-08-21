@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+
+  "buildCommand": "npm run build",
+
+  "//outputDirectory": "Angular's application builder writes the browser bundle one level deeper than the configured outputPath, so this must point at the browser/ folder — pointing at dist/tarksanhita-web serves nothing and every request 404s.",
+  "outputDirectory": "dist/tarksanhita-web/browser",
+
+  "//rewrites": "The app routes on the client, so any path Vercel cannot satisfy from the filesystem must return index.html and let the Angular router resolve it. Static files and assets are matched first, so this does not shadow them.",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+
+  "headers": [
+    {
+      "//": "Hashed build output is immutable; index.html must never be cached or users keep the old bundle after a deploy.",
+      "source": "/(.*)\\.(js|css|woff2|svg|jpg|jpeg|png|webp)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ]
+}
