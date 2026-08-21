@@ -83,7 +83,10 @@ import { RouterLink } from '@angular/router';
 
       <div style="border-top:1px solid rgba(255,255,255,.1)">
         <div class="container foot-bottom">
-          <div>&copy; {{ year }} Tarksanhita. All Rights Reserved.</div>
+          <div>
+            &copy; {{ year }} Tarksanhita. All Rights Reserved.
+            <span class="credit">Developed by <b>Bahadur Chaudhary</b></span>
+          </div>
           <nav aria-label="Legal">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms &amp; Conditions</a>

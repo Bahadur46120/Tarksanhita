@@ -427,6 +427,15 @@ button{font-family:inherit}
 .foot-bottom nav a{color:#a8b8cd;padding:0 10px;border-right:1px solid rgba(255,255,255,.16)}
 .foot-bottom nav a:last-child{border-right:0}
 .foot-bottom nav a:hover{color:var(--gold-300)}
+/* Build credit, set quieter than the copyright line beside it. */
+.foot-bottom .credit{
+  display:inline-block;margin-left:14px;padding-left:14px;border-left:1px solid rgba(255,255,255,.18);
+  font-size:.74rem;color:#8ea3bd;
+}
+.foot-bottom .credit b{color:var(--gold-300);font-weight:600}
+@media(max-width:600px){
+  .foot-bottom .credit{display:block;margin:8px 0 0;padding:0;border-left:0}
+}
 
 .to-top{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;background:var(--navy-900);color:var(--gold-300);border:2px solid var(--gold-500);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:.25s;z-index:800;font-size:1.05rem}
 .to-top.show{opacity:1;pointer-events:auto}
