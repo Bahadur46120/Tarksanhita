@@ -1,0 +1,116 @@
+<ts-page-banner
+  heading="Digital Library"
+  lede="Search the catalogue across books, journals, statutes, law reports and study material." />
+
+<main class="section">
+  <div class="container">
+
+    <form class="lib-search" role="search" (ngSubmit)="submitSearch()">
+      <label class="sr-only" for="lib-type">Resource type</label>
+      <select id="lib-type" [(ngModel)]="type" name="type" aria-label="Resource type">
+        @for (option of types; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+
+      <label class="sr-only" for="lib-q">Search the digital library</label>
+      <input id="lib-q"
+             type="search"
+             name="q"
+             [(ngModel)]="search"
+             placeholder="Search by title, author, citation or keyword…" />
+
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="lib-grid" style="margin-bottom:28px">
+      @for (option of selectableTypes; track option.value) {
+        <a class="lib-tile"
+           href="#results"
+           [style.border-color]="type === option.value ? 'var(--gold-500)' : ''"
+           (click)="$event.preventDefault(); selectType(option.value)">
+          <div class="ic"><svg><use [attr.href]="'#i-' + option.icon" /></svg></div>
+          <b>{{ option.label }}</b>
+          <small>{{ countFor(option.value) }} {{ countFor(option.value) === 1 ? 'record' : 'records' }}</small>
+        </a>
+      }
+    </div>
+
+    <div id="results">
+      <div class="flex items-center justify-between flex-wrap gap-14" style="margin-bottom:14px">
+        <h2 style="font-size:1.15rem">
+          {{ currentTypeLabel() }}
+          <span class="muted" style="font-family:var(--sans);font-size:.8rem;font-weight:400">
+            &mdash; {{ total() }} record{{ total() === 1 ? '' : 's' }}
+          </span>
+        </h2>
+        @if (type || search) {
+          <a class="btn btn-ghost btn-sm" routerLink="/library">Clear filters</a>
+        }
+      </div>
+
+      @if (loading()) {
+        <ts-loading-state [count]="10" />
+      } @else if (!items().length) {
+        <ts-empty-state
+          heading="No matching resources"
+          body="Try a broader term, or clear the filters to browse the whole catalogue." />
+      } @else {
+        <div class="table-scroll">
+          <table class="ts-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Author / Publisher</th>
+                <th>Year</th>
+                <th>Shelf</th>
+                <th>Access</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of items(); track item.id) {
+                <tr>
+                  <td>
+                    <b>{{ item.title }}</b>
+                    <div class="muted" style="font-size:.78rem">{{ item.description }}</div>
+                  </td>
+                  <td><span class="badge badge-outline">{{ item.resourceType }}</span></td>
+                  <td>{{ item.authors.join(', ') || item.publisher }}</td>
+                  <td>{{ item.year }}</td>
+                  <td><code style="font-size:.75rem">{{ item.shelfCode }}</code></td>
+                  <td class="actions">
+                    @if (item.isDigital) {
+                      <span class="badge badge-open">Digital</span>
+                    } @else {
+                      <span class="badge badge-navy">{{ item.copiesAvailable }}/{{ item.copiesTotal }}</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <ts-pager [page]="page" [totalPages]="totalPages()" [total]="total()" (pageChange)="onPage($event)" />
+      }
+    </div>
+
+  </div>
+</main>
+
+<section class="section alt">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">Using the Library</div>
+      <h2>Access &amp; Rules</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="res-grid">
+      <div class="res-item"><div class="n">01</div><h4>Open to All Learners</h4><p>Every enrolled student has full digital access from the first day of the session.</p></div>
+      <div class="res-item"><div class="n">02</div><h4>Reading Room</h4><p>Open Monday to Saturday, 09:00–20:00 IST. Reference material is not issued for home use.</p></div>
+      <div class="res-item"><div class="n">03</div><h4>Licensed Databases</h4><p>Commercial databases are reached through single sign-on from within the campus network.</p></div>
+      <div class="res-item"><div class="n">04</div><h4>Inter-Library Requests</h4><p>Titles not held can be requested through the librarian; most arrive within ten days.</p></div>
+    </div>
+  </div>
+</section>

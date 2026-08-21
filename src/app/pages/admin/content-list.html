@@ -1,0 +1,121 @@
+@if (resource(); as def) {
+
+  <div class="flex items-center justify-between flex-wrap gap-14" style="margin-bottom:6px">
+    <div>
+      <h2 style="font-size:1.3rem">{{ def.label }}</h2>
+      <p class="muted" style="font-size:.84rem;margin:2px 0 0">{{ def.description }}</p>
+    </div>
+    <a class="btn btn-gold" [routerLink]="['/admin', def.key, 'new']">+ New {{ def.singular }}</a>
+  </div>
+
+  <div class="list-toolbar">
+    <div class="field grow">
+      <label for="admin-search">Search</label>
+      <input id="admin-search"
+             type="search"
+             name="search"
+             placeholder="Search title or summary…"
+             [(ngModel)]="search"
+             (keyup.enter)="onSearch()" />
+    </div>
+
+    @if (def.filters?.length) {
+      <div class="field">
+        <label for="admin-filter">Filter</label>
+        <select id="admin-filter" [(ngModel)]="category" (change)="onSearch()">
+          @for (option of def.filters; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    <button type="button" class="btn btn-navy" (click)="onSearch()" style="align-self:flex-end">Search</button>
+  </div>
+
+  @if (loading()) {
+    <ts-loading-state [count]="10" />
+  } @else if (!items().length) {
+    <ts-empty-state
+      heading="No records"
+      [body]="search || category ? 'Nothing matched the current filters.' : 'Create the first ' + def.singular.toLowerCase() + ' using the button above.'" />
+  } @else {
+
+    <div class="table-scroll">
+      <table class="ts-table">
+        <thead>
+          <tr>
+            @for (column of def.columns; track column.name) {
+              <th [style.width]="column.width">{{ column.label }}</th>
+            }
+            <th style="width:110px">State</th>
+            <th style="width:300px;text-align:right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of items(); track item.id) {
+            <tr [style.opacity]="item.isActive ? 1 : 0.55">
+              @for (column of def.columns; track column.name) {
+                <td>
+                  @switch (column.type) {
+                    @case ('date') { {{ cell(item, column.name) | date: 'dd MMM y' }} }
+                    @case ('badge') { <span class="badge badge-outline">{{ cell(item, column.name) }}</span> }
+                    @case ('boolean') {
+                      @if (cellBool(item, column.name)) {
+                        <span class="badge badge-open">Yes</span>
+                      } @else {
+                        <span class="badge badge-navy">No</span>
+                      }
+                    }
+                    @default { {{ cell(item, column.name) }} }
+                  }
+                </td>
+              }
+
+              <td>
+                @if (!item.isActive) {
+                  <span class="badge badge-navy">Archived</span>
+                } @else if (item.isPublished) {
+                  <span class="badge badge-open">Live</span>
+                } @else {
+                  <span class="badge badge-gold">Draft</span>
+                }
+              </td>
+
+              <td class="actions">
+                <a class="btn btn-ghost btn-sm" [routerLink]="['/admin', def.key, item.id, 'edit']">Edit</a>
+
+                <button type="button"
+                        class="btn btn-sm"
+                        [class.btn-navy]="item.isPublished"
+                        [class.btn-gold]="!item.isPublished"
+                        [disabled]="working() === item.id"
+                        (click)="togglePublish(item)">
+                  {{ item.isPublished ? 'Unpublish' : 'Publish' }}
+                </button>
+
+                <button type="button"
+                        class="btn btn-ghost btn-sm"
+                        [disabled]="working() === item.id"
+                        (click)="toggleActive(item)">
+                  {{ item.isActive ? 'Archive' : 'Restore' }}
+                </button>
+
+                @if (auth.isAdmin()) {
+                  <button type="button"
+                          class="btn btn-ghost btn-sm"
+                          style="color:#b3261e;border-color:#b3261e"
+                          [disabled]="working() === item.id"
+                          (click)="remove(item)">Delete</button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <ts-pager [page]="page" [totalPages]="totalPages()" [total]="total()" (pageChange)="onPage($event)" />
+  }
+
+}

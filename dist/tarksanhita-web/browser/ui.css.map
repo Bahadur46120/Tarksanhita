@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;d180bdd77cee86874140d735f30778442b1fe0a03b9f295a3cee635595132e43;d:/Tarksanhita/frontend/src/app/shared/components/ui.ts"],
+  "sourcesContent": [":host{display:block;width:100%;height:100%} svg{width:100%;height:100%;display:block}"],
+  "mappings": ";AAAA;AAAM,WAAQ;AAAM,SAAM;AAAK,UAAO;AAAI;AAAE;AAAI,SAAM;AAAK,UAAO;AAAK,WAAQ;AAAK;",
+  "names": []
+}

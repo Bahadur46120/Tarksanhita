@@ -1,0 +1,549 @@
+<main class="page">
+  <div class="container">
+    <div class="grid3">
+
+      <!-- ==================================================== LEFT SIDEBAR -->
+      <aside class="col-left">
+
+        <section class="panel">
+          <div class="panel-head"><h3>About Tarksanhita</h3></div>
+          <div class="panel-body">
+            <div class="about-thumb" style="height:132px;padding:0;overflow:hidden">
+              <ts-placeholder-art seed="about-tarksanhita" label="Tarksanhita academic block" />
+            </div>
+            <p>
+              Tarksanhita is an independent centre for legal education, structured debate and
+              applied reasoning, founded on the conviction that sound law rests on sound logic.
+            </p>
+            <p>
+              The Centre brings together students, practitioners and scholars to examine legal
+              questions through disciplined argument, rigorous research and open academic exchange.
+            </p>
+
+            <div class="mini-head">Our Mission</div>
+            <p>To cultivate a generation of jurists who argue with evidence, reason with clarity and act with integrity.</p>
+
+            <div class="mini-head">Our Vision</div>
+            <p>To become India's foremost forum where law, logic and public reasoning meet.</p>
+
+            <a class="btn btn-ghost btn-sm" routerLink="/about">Read More</a>
+          </div>
+
+          @if (stats(); as s) {
+            <div class="stat-row">
+              <div class="stat"><b>{{ s.learners | number }}</b><small>Learners</small></div>
+              <div class="stat"><b>{{ s.faculty }}</b><small>Faculty &amp; Fellows</small></div>
+              <div class="stat"><b>{{ s.programmes }}</b><small>Programmes</small></div>
+              <div class="stat"><b>{{ s.publications }}</b><small>Publications</small></div>
+            </div>
+          }
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Important Links</h3></div>
+          <ul class="link-list panel-body" style="padding:6px 12px">
+            @for (link of quickLinks; track link.label) {
+              <li><a [routerLink]="link.link">{{ link.label }}</a></li>
+            }
+          </ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Downloads</h3><a class="more" routerLink="/students">All</a></div>
+          <ul class="link-list panel-body" style="padding:6px 12px">
+            <li><a routerLink="/admissions">Prospectus 2026&ndash;27 <span class="badge badge-outline">PDF</span></a></li>
+            <li><a routerLink="/admissions">Admission Form</a></li>
+            <li><a routerLink="/admissions">Fee Structure</a></li>
+            <li><a routerLink="/debates">Debate Rulebook</a></li>
+            <li><a routerLink="/library">Citation Style Guide</a></li>
+          </ul>
+        </section>
+
+      </aside>
+
+      <!-- ==================================================== CENTRE COLUMN -->
+      <div class="col-center">
+
+        <ts-hero-carousel />
+
+        <!-- Welcome -->
+        <section class="panel welcome">
+          <div class="panel-head"><h2>Welcome to Tarksanhita</h2><span class="more">Estd. 2016</span></div>
+          <div class="panel-body">
+            <div class="tabs" role="tablist">
+              @for (tab of tabs; track tab.key) {
+                <button type="button"
+                        role="tab"
+                        [class.active]="activeTab() === tab.key"
+                        [attr.aria-selected]="activeTab() === tab.key"
+                        (click)="activeTab.set(tab.key)">{{ tab.label }}</button>
+              }
+            </div>
+
+            @switch (activeTab()) {
+              @case ('about') {
+                <div class="tab-panel active">
+                  <h4>About Tarksanhita</h4>
+                  <p>
+                    Tarksanhita &mdash; the <em>Compendium of Reasoning</em> &mdash; is a centre for law, logic,
+                    debate and knowledge. It was established to address a simple gap in legal training:
+                    students learn what the law says long before they learn how to argue about it well.
+                    The Centre exists to close that gap.
+                  </p>
+                  <p>
+                    Teaching here is organised around the argument rather than the syllabus alone. Every
+                    course pairs doctrinal instruction with an adversarial exercise, every research fellow
+                    defends their thesis before a mixed panel, and every student passes through the moot
+                    court before they graduate.
+                  </p>
+                  <div class="pillars">
+                    <div class="pillar"><b>Doctrine</b><span>Statute, precedent and constitutional text read closely.</span></div>
+                    <div class="pillar"><b>Method</b><span>Formal and informal logic applied to legal reasoning.</span></div>
+                    <div class="pillar"><b>Practice</b><span>Moot courts, clinics and legal-aid engagement.</span></div>
+                  </div>
+                </div>
+              }
+              @case ('mission') {
+                <div class="tab-panel active">
+                  <h4>Our Mission</h4>
+                  <p>
+                    To cultivate jurists, scholars and citizens who reason from evidence, argue in good
+                    faith and hold their own conclusions to the same scrutiny they apply to others'.
+                  </p>
+                  <p>
+                    The Centre pursues this through four commitments: accessible legal education without
+                    dilution of rigour; research that is published, cited and contestable; debate conducted
+                    under published rules and neutral adjudication; and a library open to every enrolled
+                    learner without gatekeeping.
+                  </p>
+                  <div class="pillars">
+                    <div class="pillar"><b>Rigour</b><span>No claim without a source; no source without scrutiny.</span></div>
+                    <div class="pillar"><b>Access</b><span>Fee waivers and open digital resources.</span></div>
+                    <div class="pillar"><b>Integrity</b><span>Published conflict-of-interest and ethics norms.</span></div>
+                  </div>
+                </div>
+              }
+              @case ('vision') {
+                <div class="tab-panel active">
+                  <h4>Our Vision</h4>
+                  <p>
+                    To become the foremost Indian forum where law, logic and public reasoning meet &mdash; a
+                    place practitioners consult, scholars publish in, and students are formed by.
+                  </p>
+                  <p>
+                    Over the coming decade the Centre intends to build a fully open case-law and bare-act
+                    repository, host an annual national conference on legal reasoning, and place a trained
+                    adjudicator in every affiliated debating society in the country.
+                  </p>
+                </div>
+              }
+              @case ('excellence') {
+                <div class="tab-panel active">
+                  <h4>Academic Excellence</h4>
+                  <p>
+                    Programmes span certificate, diploma, postgraduate and doctoral levels across nine
+                    subject clusters. Assessment is continuous: written submissions, oral defence, case
+                    commentary and a compulsory moot component.
+                  </p>
+                  <p>
+                    Faculty are drawn from the academy, the bar and the bench, and every course is
+                    externally reviewed once every three years. Course outlines, reading lists and
+                    assessment rubrics are published before enrolment opens.
+                  </p>
+                  <div class="pillars">
+                    <div class="pillar"><b>{{ topics().length || 9 }} Clusters</b><span>Certificate to doctoral level.</span></div>
+                    <div class="pillar"><b>1:14 Ratio</b><span>Faculty to enrolled learner.</span></div>
+                    <div class="pillar"><b>External Review</b><span>Triennial audit of every course.</span></div>
+                  </div>
+                </div>
+              }
+              @case ('research') {
+                <div class="tab-panel active">
+                  <h4>Legal Research</h4>
+                  <p>
+                    Research is organised into standing centres for constitutional studies, criminal
+                    justice, technology &amp; law, and human rights. Each runs a working-paper series, an
+                    annual call for papers and a public seminar programme.
+                  </p>
+                  <p>
+                    The Centre operates a double-blind peer review process for its two flagship journals
+                    and maintains an ethics committee that clears all empirical work involving human
+                    participants.
+                  </p>
+                </div>
+              }
+              @case ('debate') {
+                <div class="tab-panel active">
+                  <h4>Debate &amp; Logic</h4>
+                  <p>
+                    The debating programme is not an extracurricular add-on &mdash; it is examined. Students
+                    are trained in argument construction, fallacy identification, burden allocation and
+                    rebuttal, then tested in adjudicated rounds against published criteria.
+                  </p>
+                  <p>
+                    Motions are drawn from live legal and policy controversies. Adjudicators publish
+                    written reasons, and every decision may be appealed to a review panel &mdash; the same
+                    discipline the Centre expects of courts.
+                  </p>
+                </div>
+              }
+            }
+          </div>
+        </section>
+
+        <!-- Notice board -->
+        <section class="panel" id="notices">
+          <div class="panel-head"><h2>Notice Board</h2><a class="more" routerLink="/notices">View All Notices</a></div>
+
+          @if (loading()) {
+            <div class="panel-body"><ts-loading-state [count]="6" /></div>
+          } @else if (!notices().length) {
+            <div class="panel-body"><ts-empty-state heading="No notices published" body="New notifications will appear here as they are issued." /></div>
+          } @else {
+            <div class="notice-scroll">
+              <ul>
+                @for (notice of noticeLoop(); track $index) {
+                  <li class="notice">
+                    <div class="date">
+                      <b>{{ notice.noticeDate | date: 'dd' }}</b>
+                      <span>{{ notice.noticeDate | date: 'MMM' }}</span>
+                    </div>
+                    <div class="meta">
+                      <a [routerLink]="['/notices', notice.slug]">
+                        {{ notice.title }}
+                        @if (isNew(notice.noticeDate)) { <span class="badge badge-new">New</span> }
+                      </a>
+                      <small>
+                        {{ notice.department }}
+                        @if (notice.referenceNo) { &middot; Ref {{ notice.referenceNo }} }
+                      </small>
+                    </div>
+                    <a class="btn btn-ghost btn-sm" [routerLink]="['/notices', notice.slug]">View</a>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </section>
+
+        <!-- Latest news -->
+        <section class="panel">
+          <div class="panel-head"><h2>Latest News</h2><a class="more" routerLink="/news">All News</a></div>
+          <div class="panel-body">
+            @if (loading()) {
+              <ts-loading-state [count]="4" />
+            } @else if (!news().length) {
+              <ts-empty-state heading="No news yet" body="Announcements from the Centre will be listed here." />
+            } @else {
+              <div class="news-grid">
+                @for (item of news(); track item.id) {
+                  <article class="news-card">
+                    <div class="thumb">
+                      @if (item.imageUrl) {
+                        <img [src]="item.imageUrl" [alt]="item.title" style="width:100%;height:100%;object-fit:cover" />
+                      } @else {
+                        <ts-placeholder-art [seed]="item.slug" [label]="item.title" />
+                      }
+                      <span class="tag">{{ item.category }}</span>
+                    </div>
+                    <div class="body">
+                      <time [attr.datetime]="item.publishedAt">{{ item.publishedAt | date: 'dd MMMM y' }}</time>
+                      <h4>{{ item.title }}</h4>
+                      <p>{{ item.summary }}</p>
+                      <a class="read-more" [routerLink]="['/news', item.slug]">Read More</a>
+                    </div>
+                  </article>
+                }
+              </div>
+            }
+          </div>
+        </section>
+
+        <!-- Upcoming events -->
+        <section class="panel" id="events">
+          <div class="panel-head"><h2>Upcoming Events</h2><a class="more" routerLink="/events">Full Calendar</a></div>
+
+          @if (loading()) {
+            <div class="panel-body"><ts-loading-state [count]="5" /></div>
+          } @else if (!events().length) {
+            <div class="panel-body"><ts-empty-state heading="No scheduled events" body="Conferences, seminars and competitions will be listed here." /></div>
+          } @else {
+            <div>
+              @for (event of events(); track event.id) {
+                <div class="event">
+                  <div class="cal">
+                    <div class="m">{{ event.startsAt | date: 'MMM' }}</div>
+                    <div class="d">{{ event.startsAt | date: 'dd' }}</div>
+                    <div class="y">{{ event.startsAt | date: 'y' }}</div>
+                  </div>
+                  <div class="info">
+                    <h4>{{ event.title }}</h4>
+                    <div class="place">
+                      <span><svg width="13" height="13"><use href="#i-pin" /></svg> {{ event.venue }}</span>
+                      <span><svg width="13" height="13"><use href="#i-clock" /></svg> {{ event.startsAt | date: 'HH:mm' }} IST</span>
+                    </div>
+                  </div>
+                  <div class="act">
+                    @if (event.registrationOpen) {
+                      <span class="badge badge-open">Registration Open</span>
+                      <a class="btn btn-gold btn-sm" [routerLink]="['/events', event.slug]">Register</a>
+                    } @else {
+                      <span class="badge badge-navy">Open to All</span>
+                      <a class="btn btn-ghost btn-sm" [routerLink]="['/events', event.slug]">Details</a>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </section>
+
+      </div>
+
+      <!-- ==================================================== RIGHT SIDEBAR -->
+      <aside class="col-right">
+        <div class="profile-wrap">
+          @for (person of profiles(); track person.id) {
+            <div class="profile-card">
+              <div class="role">{{ person.designation }}</div>
+              <div class="ph">
+                @if (person.photoUrl) {
+                  <img [src]="person.photoUrl" [alt]="person.fullName" style="width:100%;height:100%;object-fit:cover" />
+                } @else {
+                  <ts-avatar-art [name]="person.fullName" />
+                }
+              </div>
+              <h4>{{ person.fullName }}</h4>
+              <div class="qual">{{ person.qualifications }}</div>
+              <p>{{ person.shortBio }}</p>
+              <a class="btn btn-navy btn-sm" [routerLink]="['/faculty', person.slug]">View Profile</a>
+            </div>
+          } @empty {
+            @if (!loading()) {
+              <ts-empty-state heading="Profiles pending" body="Leadership profiles will appear here once published." />
+            }
+          }
+        </div>
+
+        <div class="side-note">
+          <b>Admission Helpdesk</b>
+          Counselling for the 2026&ndash;27 session is available on working days, 10:00&ndash;17:00 IST.
+          <div style="margin-top:9px"><a class="btn btn-gold btn-sm" routerLink="/contact">Talk to Us</a></div>
+        </div>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Quick Access</h3></div>
+          <ul class="link-list panel-body" style="padding:6px 12px">
+            <li><a routerLink="/login">Student Login</a></li>
+            <li><a routerLink="/login">Faculty Login</a></li>
+            <li><a routerLink="/students">Examination Portal</a></li>
+            <li><a routerLink="/students">Fee Payment</a></li>
+            <li><a routerLink="/contact">Grievance Redressal</a></li>
+            <li><a routerLink="/admin">Admin Panel</a></li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Follow Us</h3></div>
+          <div class="panel-body">
+            <div class="social-row">
+              <a href="#" aria-label="Facebook">f</a>
+              <a href="#" aria-label="X">X</a>
+              <a href="#" aria-label="LinkedIn">in</a>
+              <a href="#" aria-label="YouTube">&#9654;</a>
+              <a href="#" aria-label="Instagram">&#9678;</a>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<!-- ======================================================== ACADEMICS -->
+<section class="section alt" id="academics">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">Programmes &amp; Departments</div>
+      <h2>Academics</h2>
+      <div class="rule"></div>
+      <p>Subject clusters spanning certificate, diploma, postgraduate and doctoral study. Every cluster pairs doctrinal instruction with an examined argumentation component.</p>
+    </div>
+
+    @if (topics().length) {
+      <div class="acad-grid">
+        @for (topic of topics(); track topic.id) {
+          <a class="acad-card" [routerLink]="['/legal-topics', topic.slug]">
+            <div class="ic"><svg><use [attr.href]="iconFor(topic.iconKey)" /></svg></div>
+            <h4>{{ topic.title }}</h4>
+            <p>{{ topic.summary }}</p>
+            <div class="meta"><span>{{ levelFor($index) }}</span><span>3&ndash;36 Months</span></div>
+          </a>
+        }
+      </div>
+    } @else if (!loading()) {
+      <ts-empty-state heading="Programmes are being published" body="The academic catalogue will appear here shortly." />
+    }
+
+    <div class="text-center" style="margin-top:26px">
+      <a class="btn btn-navy" routerLink="/academics">View All Programmes</a>
+      <a class="btn btn-gold" routerLink="/admissions">Apply for Admission</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== DEBATES -->
+<section class="section deep" id="debates">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">Active Motions</div>
+      <h2>Debate &amp; Logic</h2>
+      <div class="rule"></div>
+      <p>Motions are published in advance, argued under recorded rules and decided by adjudicators who must give written reasons. Registered members may join the discussion on any live motion.</p>
+    </div>
+
+    @if (debates().length) {
+      <div class="debate-grid">
+        @for (debate of debates(); track debate.id) {
+          <article class="debate-card">
+            <div class="top">
+              <div>
+                <div class="topic">{{ debate.topic }}</div>
+                <h3>{{ debate.title }}</h3>
+              </div>
+              <span class="badge" [class.badge-open]="debate.status === 'Live'" [class.badge-navy]="debate.status !== 'Live'">
+                {{ debate.status }}
+              </span>
+            </div>
+
+            <div class="stance">
+              <div><b>For the Motion</b><p>{{ debate.forSummary }}</p></div>
+              <div class="against"><b>Against the Motion</b><p>{{ debate.againstSummary }}</p></div>
+            </div>
+
+            <div class="debate-meta">
+              <span><b>{{ debate.participants.length }}</b> participants</span>
+              <span><b>{{ debate.argumentCount }}</b> arguments</span>
+              <span><b>{{ debate.counterArgumentCount }}</b> counterarguments</span>
+              <span><svg width="13" height="13"><use href="#i-cal" /></svg> {{ debate.scheduledFor | date: 'dd MMM y' }}</span>
+            </div>
+
+            <a class="btn btn-gold btn-sm" [routerLink]="['/debates', debate.slug]">View Debate</a>
+            <a class="btn btn-ghost-light btn-sm" [routerLink]="['/debates', debate.slug]" fragment="discussion">Join Discussion</a>
+          </article>
+        }
+      </div>
+    } @else if (!loading()) {
+      <ts-empty-state heading="No live motions" body="Scheduled debates will be listed here once published." />
+    }
+
+    <div class="text-center" style="margin-top:26px">
+      <a class="btn btn-ghost-light" routerLink="/debates">All Debates &amp; Archive</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== RESEARCH -->
+<section class="section" id="research">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">Scholarship</div>
+      <h2>Research &amp; Publications</h2>
+      <div class="rule"></div>
+      <p>Two peer-reviewed journals, a working-paper series and an open repository of case notes produced by faculty, fellows and students.</p>
+    </div>
+
+    <div class="res-grid">
+      <div class="res-item"><div class="n">01</div><h4>Research Papers</h4><p>Doctrinal, empirical and comparative papers across all four standing research centres.</p><a class="read-more" routerLink="/publications">Browse</a></div>
+      <div class="res-item"><div class="n">02</div><h4>Journals</h4><p>Tarksanhita Law Review and the Journal of Logic &amp; Argument, both double-blind reviewed.</p><a class="read-more" routerLink="/publications">Browse</a></div>
+      <div class="res-item"><div class="n">03</div><h4>Articles</h4><p>Shorter commentary on legislative developments and recent judgments.</p><a class="read-more" routerLink="/articles">Browse</a></div>
+      <div class="res-item"><div class="n">04</div><h4>Case Studies</h4><p>Structured notes on landmark judgments with argument maps and dissent analysis.</p><a class="read-more" routerLink="/case-studies">Browse</a></div>
+      <div class="res-item"><div class="n">05</div><h4>Legal Research</h4><p>Methodology guides, datasets and replication material for empirical legal work.</p><a class="read-more" routerLink="/research">Browse</a></div>
+      <div class="res-item"><div class="n">06</div><h4>Faculty Publications</h4><p>Books, monographs and externally published work by Centre faculty.</p><a class="read-more" routerLink="/publications">Browse</a></div>
+      <div class="res-item"><div class="n">07</div><h4>Student Research</h4><p>Dissertations, prize essays and student-led working papers.</p><a class="read-more" routerLink="/publications">Browse</a></div>
+      <div class="res-item"><div class="n">08</div><h4>Call for Papers</h4><p>Open calls, submission windows and editorial guidelines for forthcoming volumes.</p><a class="read-more" routerLink="/notices">Browse</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== LIBRARY -->
+<section class="section alt" id="library">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">Knowledge Resources</div>
+      <h2>Digital Library</h2>
+      <div class="rule"></div>
+      <p>Search the catalogue across books, journals, statutes, law reports and study material.</p>
+    </div>
+
+    <div class="lib-grid">
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'Book' }"><div class="ic"><svg><use href="#i-book" /></svg></div><b>Books</b><small>Core &amp; reference</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'Journal' }"><div class="ic"><svg><use href="#i-doc" /></svg></div><b>Journals</b><small>Subscriptions</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'ResearchPaper' }"><div class="ic"><svg><use href="#i-flask" /></svg></div><b>Research Papers</b><small>Open access</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'BareAct' }"><div class="ic"><svg><use href="#i-scale" /></svg></div><b>Bare Acts</b><small>Central &amp; State</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'CaseLaw' }"><div class="ic"><svg><use href="#i-gavel" /></svg></div><b>Case Laws</b><small>Reported judgments</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'Constitution' }"><div class="ic"><svg><use href="#i-building" /></svg></div><b>Constitution</b><small>Annotated text</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'Database' }"><div class="ic"><svg><use href="#i-globe" /></svg></div><b>Legal Databases</b><small>Licensed access</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'StudyMaterial' }"><div class="ic"><svg><use href="#i-bulb" /></svg></div><b>Study Materials</b><small>Course-linked</small></a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== STUDENT CORNER -->
+<section class="section deep" id="students">
+  <div class="container">
+    <div class="student-wrap">
+      <div>
+        <div class="kicker" style="font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-400);font-weight:700">For Enrolled Learners</div>
+        <h2 style="font-size:clamp(1.4rem,2.7vw,2.05rem);margin:8px 0 12px">Student Corner</h2>
+        <div style="width:96px;height:3px;background:linear-gradient(90deg,var(--gold-600),var(--gold-300));margin-bottom:16px"></div>
+        <p style="font-size:.92rem;color:#a9bcd4;max-width:520px">
+          Everything an enrolled student needs in one place &mdash; results, examination forms, assignment
+          submission, scholarships, certificates and downloads. Sign in with your enrolment number to
+          access personalised records.
+        </p>
+        <div style="margin-top:18px">
+          <a class="btn btn-gold" routerLink="/login">Student Login</a>
+          <a class="btn btn-ghost-light" routerLink="/register">New Registration</a>
+        </div>
+      </div>
+
+      <div class="student-links">
+        <a routerLink="/login"><span class="b">&rarr;</span> Student Login</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Results</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Examination</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Assignments</a>
+        <a routerLink="/library"><span class="b">&rarr;</span> Study Materials</a>
+        <a routerLink="/events"><span class="b">&rarr;</span> Events</a>
+        <a routerLink="/notices"><span class="b">&rarr;</span> Scholarships</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Certificates</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Downloads</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== IMPORTANT LINKS -->
+<section class="section alt" style="padding:30px 0">
+  <div class="container">
+    <div class="sec-title" style="margin-bottom:20px">
+      <div class="kicker">Frequently Visited</div>
+      <h2 style="font-size:1.35rem">Important Links</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="imp-strip">
+      <a routerLink="/admissions"><span class="ic"><svg><use href="#i-doc" /></svg></span>Admissions</a>
+      <a routerLink="/students"><span class="ic"><svg><use href="#i-cal" /></svg></span>Examination</a>
+      <a routerLink="/students"><span class="ic"><svg><use href="#i-award" /></svg></span>Results</a>
+      <a routerLink="/notices"><span class="ic"><svg><use href="#i-chat" /></svg></span>Notifications</a>
+      <a routerLink="/events"><span class="ic"><svg><use href="#i-cal" /></svg></span>Academic Calendar</a>
+      <a routerLink="/research"><span class="ic"><svg><use href="#i-flask" /></svg></span>Research</a>
+      <a routerLink="/library"><span class="ic"><svg><use href="#i-book" /></svg></span>Library</a>
+      <a routerLink="/students"><span class="ic"><svg><use href="#i-down" /></svg></span>Downloads</a>
+      <a routerLink="/careers"><span class="ic"><svg><use href="#i-people" /></svg></span>Careers</a>
+      <a routerLink="/contact"><span class="ic"><svg><use href="#i-pin" /></svg></span>Contact</a>
+    </div>
+  </div>
+</section>

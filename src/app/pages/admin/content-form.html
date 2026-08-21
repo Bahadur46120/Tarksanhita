@@ -1,0 +1,91 @@
+@if (resource(); as def) {
+
+  <div class="flex items-center justify-between flex-wrap gap-14" style="margin-bottom:14px">
+    <div>
+      <h2 style="font-size:1.3rem">{{ editingId() ? 'Edit' : 'New' }} {{ def.singular }}</h2>
+      <p class="muted" style="font-size:.84rem;margin:2px 0 0">{{ def.description }}</p>
+    </div>
+    <a class="btn btn-ghost" [routerLink]="['/admin', def.key]">&#10094; Back to {{ def.label }}</a>
+  </div>
+
+  @if (loading()) {
+    <ts-loading-state [count]="12" />
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="card">
+        <div class="form-grid">
+          @for (field of def.fields; track field.name) {
+
+            @if (field.type === 'checkbox') {
+              <div class="field" [class.full]="field.wide">
+                <label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:normal;font-size:.86rem;font-weight:500;cursor:pointer">
+                  <input type="checkbox" [formControlName]="field.name" style="width:auto" />
+                  {{ field.label }}
+                </label>
+                @if (field.hint) { <span class="muted" style="font-size:.72rem">{{ field.hint }}</span> }
+              </div>
+
+            } @else {
+              <div class="field" [class.full]="field.wide || field.type === 'richtext'" [class.invalid]="invalid(field.name)">
+                <label [attr.for]="'f-' + field.name">
+                  {{ field.label }}
+                  @if (field.required) { <span style="color:var(--danger)">*</span> }
+                </label>
+
+                @switch (field.type) {
+                  @case ('textarea') {
+                    <textarea [id]="'f-' + field.name" [formControlName]="field.name" rows="3"></textarea>
+                  }
+                  @case ('richtext') {
+                    <textarea [id]="'f-' + field.name" [formControlName]="field.name" rows="9"
+                              placeholder="Plain text. Separate paragraphs with a blank line."></textarea>
+                  }
+                  @case ('select') {
+                    <select [id]="'f-' + field.name" [formControlName]="field.name">
+                      <option value="">— Select —</option>
+                      @for (option of field.options; track option) {
+                        <option [value]="option">{{ option }}</option>
+                      }
+                    </select>
+                  }
+                  @case ('number') {
+                    <input [id]="'f-' + field.name" type="number" [formControlName]="field.name" />
+                  }
+                  @case ('date') {
+                    <input [id]="'f-' + field.name" type="date" [formControlName]="field.name" />
+                  }
+                  @case ('datetime') {
+                    <input [id]="'f-' + field.name" type="datetime-local" [formControlName]="field.name" />
+                  }
+                  @case ('url') {
+                    <input [id]="'f-' + field.name" type="url" [formControlName]="field.name" placeholder="https://…" />
+                  }
+                  @case ('tags') {
+                    <input [id]="'f-' + field.name" type="text" [formControlName]="field.name" placeholder="Comma-separated" />
+                  }
+                  @default {
+                    <input [id]="'f-' + field.name" type="text" [formControlName]="field.name" />
+                  }
+                }
+
+                @if (field.hint) { <span class="muted" style="font-size:.72rem">{{ field.hint }}</span> }
+                @if (invalid(field.name)) { <span class="err">This field is required.</span> }
+              </div>
+            }
+
+          }
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-navy" [disabled]="saving()">
+            {{ saving() ? 'Saving…' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-gold" [disabled]="saving()" (click)="save(true)">Save &amp; Publish</button>
+          <button type="button" class="btn btn-ghost" [disabled]="saving()" (click)="save(false)">Save as Draft</button>
+          <button type="button" class="btn btn-ghost" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  }
+
+}

@@ -1,0 +1,90 @@
+// src/app/layout/nav.data.ts
+var MAIN_NAV = [
+  { label: "Home", link: "/" },
+  {
+    label: "About Us",
+    link: "/about",
+    children: [
+      { label: "The Institution", link: "/institution" },
+      { label: "Introduction", link: "/about" },
+      { label: "Vision & Mission", link: "/about" },
+      { label: "Founder's Message", link: "/about" },
+      { label: "Governing Council", link: "/faculty" },
+      { label: "Faculty Directory", link: "/faculty" },
+      { label: "Contact Us", link: "/contact" }
+    ]
+  },
+  {
+    label: "Academics",
+    link: "/academics",
+    children: [
+      { label: "Programmes Offered", link: "/academics" },
+      { label: "Faculty Directory", link: "/faculty" },
+      { label: "Admissions", link: "/admissions" },
+      { label: "Notices", link: "/notices" },
+      { label: "Events", link: "/events" }
+    ]
+  },
+  {
+    label: "Debates",
+    link: "/debates",
+    children: [
+      { label: "Start a Debate", link: "/debates/start" },
+      { label: "Active Debates", link: "/debates" },
+      { label: "Debate Archive", link: "/debates" },
+      { label: "Moot Court", link: "/events" },
+      { label: "Rules & Format", link: "/library" }
+    ]
+  },
+  {
+    label: "Library",
+    link: "/library",
+    children: [
+      { label: "Digital Library", link: "/library" },
+      { label: "Bare Acts", link: "/library" },
+      { label: "Case Laws", link: "/library" },
+      { label: "Study Materials", link: "/library" },
+      // Kept here so commentary stays reachable now that Research and
+      // Publications have come off the main navigation.
+      { label: "Articles & Commentary", link: "/articles" }
+    ]
+  },
+  {
+    label: "Events",
+    link: "/events",
+    children: [
+      { label: "Upcoming Events", link: "/events" },
+      { label: "Conferences", link: "/events" },
+      { label: "Competitions", link: "/events" },
+      { label: "Guest Lectures", link: "/events" }
+    ]
+  },
+  {
+    label: "Students",
+    link: "/students",
+    children: [
+      { label: "Student Corner", link: "/students" },
+      { label: "My Account", link: "/profile" },
+      { label: "Notices", link: "/notices" },
+      { label: "Downloads", link: "/students" }
+    ]
+  },
+  { label: "Careers", link: "/careers" },
+  { label: "Contact Us", link: "/contact" }
+];
+var QUICK_LINKS = [
+  { label: "Admissions", link: "/admissions" },
+  { label: "Academic Calendar", link: "/events" },
+  { label: "Examinations", link: "/students" },
+  { label: "Results", link: "/students" },
+  { label: "Notifications", link: "/notices" },
+  { label: "Downloads", link: "/students" },
+  { label: "Library", link: "/library" },
+  { label: "Contact", link: "/contact" }
+];
+
+export {
+  MAIN_NAV,
+  QUICK_LINKS
+};
+//# sourceMappingURL=chunk-LEEVYR4T.js.map

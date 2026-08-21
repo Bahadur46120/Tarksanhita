@@ -1,0 +1,169 @@
+@if (debate(); as d) {
+  <ts-page-banner [heading]="d.title" parentLabel="Debates" parentLink="/debates" />
+
+  <section class="section deep" style="padding-top:26px">
+    <div class="container" style="max-width:1000px">
+
+      <article class="debate-card">
+        <div class="top">
+          <div>
+            <div class="topic">{{ d.topic }}</div>
+            <h3 style="font-size:1.1rem">{{ d.motion }}</h3>
+          </div>
+          <span class="badge"
+                [class.badge-open]="d.status === 'Live'"
+                [class.badge-gold]="d.status === 'Draft'"
+                [class.badge-navy]="d.status === 'Closed' || d.status === 'Archived'">{{ d.status }}</span>
+        </div>
+
+        <div class="stance">
+          <div><b>Opening Case — For</b><p>{{ d.forSummary }}</p></div>
+          <div class="against"><b>Opening Case — Against</b><p>{{ d.againstSummary }}</p></div>
+        </div>
+
+        <div class="debate-meta">
+          <span><b>{{ d.participants.length }}</b> participants</span>
+          <span><b>{{ d.argumentCount }}</b> arguments</span>
+          <span><b>{{ d.counterArgumentCount }}</b> counterarguments</span>
+          <span><svg width="13" height="13"><use href="#i-cal" /></svg> {{ d.scheduledFor | date: 'dd MMMM y' }}</span>
+        </div>
+
+        @if (d.participants.length) {
+          <p style="font-size:.8rem;color:#9db0c8;margin:0">
+            <b style="color:var(--gold-300)">Participants:</b> {{ d.participants.join(', ') }}
+          </p>
+        }
+        @if (d.adjudicators.length) {
+          <p style="font-size:.8rem;color:#9db0c8;margin:4px 0 0">
+            <b style="color:var(--gold-300)">Adjudicators:</b> {{ d.adjudicators.join(', ') }}
+          </p>
+        }
+      </article>
+
+      @if (d.verdict) {
+        <div id="verdict" class="side-note" style="margin-top:18px">
+          <b>Adjudicators' Verdict</b>
+          {{ d.verdict }}
+        </div>
+      }
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container" style="max-width:1000px">
+
+      <div class="sec-title" style="margin-bottom:20px">
+        <div class="kicker">The Record</div>
+        <h2>Arguments &amp; Counterarguments</h2>
+        <div class="rule"></div>
+      </div>
+
+      @if (!openingArguments().length) {
+        <ts-empty-state
+          heading="No arguments recorded yet"
+          body="Be the first to open a case on this motion." />
+      } @else {
+        @for (argument of openingArguments(); track argument.id) {
+          <article class="panel">
+            <div class="panel-head"
+                 [style.background]="argument.side === 'For'
+                   ? 'linear-gradient(135deg,#0a1a2f,#17395f)'
+                   : 'linear-gradient(135deg,#4a1f18,#7a3226)'">
+              <h3>{{ argument.side === 'For' ? 'For the Motion' : 'Against the Motion' }} &mdash; {{ argument.authorName }}</h3>
+              <span class="more">{{ argument.postedAt | date: 'dd MMM y' }}</span>
+            </div>
+            <div class="panel-body prose">
+              <p>{{ argument.text }}</p>
+
+              @if (argument.citations.length) {
+                <p class="muted" style="font-size:.78rem">
+                  <b>Cited:</b> {{ argument.citations.join('; ') }}
+                </p>
+              }
+
+              @if (d.discussionOpen && auth.isAuthenticated()) {
+                <button type="button" class="btn btn-ghost btn-sm" (click)="startRebuttal(argument)">Rebut This</button>
+              }
+
+              @for (rebuttal of rebuttalsFor(argument.id); track rebuttal.id) {
+                <div style="margin-top:14px;padding:12px 14px;border-left:3px solid var(--gold-500);background:var(--surface-alt)">
+                  <div style="font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-600);font-weight:800">
+                    Counterargument &mdash; {{ rebuttal.side }} &mdash; {{ rebuttal.authorName }}
+                  </div>
+                  <p style="margin:6px 0 0;font-size:.86rem">{{ rebuttal.text }}</p>
+                </div>
+              }
+            </div>
+          </article>
+        }
+      }
+
+      <!-- ---------------- submission ---------------- -->
+      <section class="panel" id="discussion">
+        <div class="panel-head"><h2>Join the Discussion</h2></div>
+        <div class="panel-body">
+
+          @if (!auth.isAuthenticated()) {
+            <p class="muted">
+              Submissions are open to registered members. Sign in to post an argument or a rebuttal.
+            </p>
+            <a class="btn btn-gold" routerLink="/login" [queryParams]="{ returnUrl: '/debates/' + d.slug }">Sign In</a>
+            <a class="btn btn-ghost" routerLink="/register">Register</a>
+
+          } @else if (!d.discussionOpen || d.status === 'Closed' || d.status === 'Archived') {
+            <p class="muted">This motion is closed. The record above is final; the verdict may be appealed to the review panel.</p>
+
+          } @else {
+            @if (rebuts) {
+              <div class="hint-box" style="margin-bottom:14px">
+                <b>Replying to an argument</b>
+                Your submission will be recorded as a counterargument.
+                <button type="button" class="btn btn-ghost btn-sm" style="margin-top:8px" (click)="cancelRebuttal()">Cancel reply</button>
+              </div>
+            }
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="side">Side</label>
+                <select id="side" [(ngModel)]="side" name="side">
+                  <option value="For">For the Motion</option>
+                  <option value="Against">Against the Motion</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label for="argument">Your argument</label>
+                <textarea id="argument"
+                          name="argument"
+                          [(ngModel)]="text"
+                          placeholder="State your claim, then the reason it follows, then the evidence for the reason."></textarea>
+                <span class="muted" style="font-size:.72rem">{{ text.length }} characters &middot; minimum 10</span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-gold" [disabled]="submitting()" (click)="submit()">
+                {{ submitting() ? 'Submitting…' : 'Submit Argument' }}
+              </button>
+              <a class="btn btn-ghost" routerLink="/debates">Back to Debates</a>
+            </div>
+          }
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+} @else if (loading()) {
+  <main class="section"><div class="container"><ts-loading-state [count]="12" /></div></main>
+} @else {
+  <main class="section">
+    <div class="container">
+      <ts-empty-state heading="Debate not found" body="This motion may have been withdrawn, or the address may be incorrect." />
+      <div class="text-center" style="margin-top:18px">
+        <a class="btn btn-navy" routerLink="/debates">Back to Debates</a>
+      </div>
+    </div>
+  </main>
+}

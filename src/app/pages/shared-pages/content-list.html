@@ -1,0 +1,67 @@
+<ts-page-banner [heading]="config().title" [lede]="config().lede ?? ''" />
+
+<main class="section">
+  <div class="container">
+
+    <div class="list-toolbar">
+      <div class="field grow">
+        <label for="list-search">Search</label>
+        <input id="list-search"
+               type="search"
+               name="search"
+               placeholder="Search by title or keyword…"
+               [(ngModel)]="search"
+               (keyup.enter)="onSearch()" />
+      </div>
+
+      @if (config().filters?.length) {
+        <div class="field">
+          <label for="list-filter">Filter</label>
+          <select id="list-filter" [(ngModel)]="category" (change)="onFilter(category)">
+            @for (option of config().filters; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <button type="button" class="btn btn-navy" (click)="onSearch()" style="align-self:flex-end">Search</button>
+    </div>
+
+    @if (loading()) {
+      <div class="news-grid">
+        @for (skeleton of [1,2,3,4,5,6]; track skeleton) {
+          <div class="news-card"><div class="skeleton sk-card"></div></div>
+        }
+      </div>
+    } @else if (!items().length) {
+      <ts-empty-state
+        heading="No records found"
+        [body]="search ? 'No results matched your search. Try a different term.' : 'There are no published records in this section yet.'" />
+    } @else {
+      <div class="news-grid">
+        @for (item of items(); track item.id) {
+          <article class="news-card">
+            <div class="thumb">
+              <ts-placeholder-art [seed]="item.slug" [label]="item.title" />
+              @if (metaOf(item)) { <span class="tag">{{ metaOf(item) }}</span> }
+            </div>
+            <div class="body">
+              <time [attr.datetime]="dateOf(item)">{{ dateOf(item) | date: 'dd MMMM y' }}</time>
+              <h4>{{ item.title }}</h4>
+              <p>{{ summaryOf(item) }}</p>
+              <a class="read-more" [routerLink]="detailLink(item)">Read More</a>
+            </div>
+          </article>
+        }
+      </div>
+
+      <ts-pager
+        [page]="page"
+        [totalPages]="totalPages()"
+        [total]="total()"
+        (pageChange)="onPage($event)" />
+    }
+
+  </div>
+</main>
