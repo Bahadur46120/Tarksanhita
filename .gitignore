@@ -1,0 +1,40 @@
+# Dependencies — restored by `npm ci` from package-lock.json. Committing these
+# breaks Linux builds: Windows git drops the execute bit, so node_modules/.bin/ng
+# arrives without +x and the build exits 126.
+/node_modules
+
+# Build output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Angular build cache
+/.angular/cache
+.sass-cache/
+
+# Deployment
+/.vercel
+
+# IDE
+/.idea
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/settings.json
+*.launch
+.project
+.classpath
+.c9/
+*.sublime-workspace
+
+# Logs and system files
+npm-debug.log*
+yarn-error.log*
+*.log
+.DS_Store
+Thumbs.db
+
+# Local environment overrides
+.env
+.env.local
+.env.*.local
