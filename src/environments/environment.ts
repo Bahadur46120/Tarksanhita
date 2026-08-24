@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   apiUrl: 'https://johnkumar-001-site1.etempurl.com/api',
   demoLogin: false,
   siteName: 'Tarksanhita',
