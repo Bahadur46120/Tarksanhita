@@ -1,11 +1,25 @@
 import { Routes } from '@angular/router';
 import { DebateAdminDashboard } from './debate-admin-dashboard.component';
+import { DebateListComponent } from './components/debate-list/debate-list.component';
+import { DebateFormComponent } from './components/debate-form/debate-form.component';
+import { DebateDetailComponent } from './components/debate-detail/debate-detail.component';
+import { DebateScoringComponent } from './components/debate-scoring/debate-scoring.component';
+import { DebateResultsComponent } from './components/debate-results/debate-results.component';
+import { StudentListComponent } from './components/student-list/student-list.component';
+import { StudentDetailComponent } from './components/student-detail/student-detail.component';
+import { TopicListComponent } from './components/topic-list/topic-list.component';
+import { TopicFormComponent } from './components/topic-form/topic-form.component';
+import { JudgeListComponent } from './components/judge-list/judge-list.component';
+import { ParticipantApprovalComponent } from './components/participant-approval/participant-approval.component';
+import { ParticipantDetailComponent } from './components/participant-detail/participant-detail.component';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { ReportsMainComponent } from './components/reports/reports-main.component';
+import { StudentReportComponent } from './components/reports/student-report/student-report.component';
+import { DebateReportComponent } from './components/reports/debate-report/debate-report.component';
+import { DebateAnalyticsComponent } from './components/debate-analytics/debate-analytics.component';
+import { UserManagementComponent } from './components/settings/user-management/user-management.component';
+import { SystemSettingsComponent } from './components/settings/system-settings/system-settings.component';
 
-/**
- * Debate Admin Routes
- * Nested routes for debate administration panel
- * All routes require Admin role (enforced by parent guard)
- */
 export const debateAdminRoutes: Routes = [
   {
     path: '',
@@ -20,38 +34,32 @@ export const debateAdminRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./components/debate-list/debate-list.component').then(m => m.DebateListComponent),
+        component: DebateListComponent,
         title: 'All Debates — Debate Admin'
       },
       {
         path: 'create',
-        loadComponent: () =>
-          import('./components/debate-form/debate-form.component').then(m => m.DebateFormComponent),
+        component: DebateFormComponent,
         title: 'Create Debate — Debate Admin'
       },
       {
         path: ':id',
-        loadComponent: () =>
-          import('./components/debate-detail/debate-detail.component').then(m => m.DebateDetailComponent),
+        component: DebateDetailComponent,
         title: 'Debate Details — Debate Admin'
       },
       {
         path: ':id/edit',
-        loadComponent: () =>
-          import('./components/debate-form/debate-form.component').then(m => m.DebateFormComponent),
+        component: DebateFormComponent,
         title: 'Edit Debate — Debate Admin'
       },
       {
         path: ':id/scoring',
-        loadComponent: () =>
-          import('./components/debate-scoring/debate-scoring.component').then(m => m.DebateScoringComponent),
+        component: DebateScoringComponent,
         title: 'Score Debate — Debate Admin'
       },
       {
         path: ':id/results',
-        loadComponent: () =>
-          import('./components/debate-results/debate-results.component').then(m => m.DebateResultsComponent),
+        component: DebateResultsComponent,
         title: 'Debate Results — Debate Admin'
       }
     ]
@@ -60,14 +68,12 @@ export const debateAdminRoutes: Routes = [
   // ===================== Student Management =====================
   {
     path: 'students',
-    loadComponent: () =>
-      import('./components/student-list/student-list.component').then(m => m.StudentListComponent),
+    component: StudentListComponent,
     title: 'Student Registry — Debate Admin'
   },
   {
     path: 'students/:id',
-    loadComponent: () =>
-      import('./components/student-detail/student-detail.component').then(m => m.StudentDetailComponent),
+    component: StudentDetailComponent,
     title: 'Student Details — Debate Admin'
   },
 
@@ -77,20 +83,17 @@ export const debateAdminRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./components/topic-list/topic-list.component').then(m => m.TopicListComponent),
+        component: TopicListComponent,
         title: 'Topics — Debate Admin'
       },
       {
         path: 'new',
-        loadComponent: () =>
-          import('./components/topic-form/topic-form.component').then(m => m.TopicFormComponent),
+        component: TopicFormComponent,
         title: 'Create Topic — Debate Admin'
       },
       {
         path: ':id/edit',
-        loadComponent: () =>
-          import('./components/topic-form/topic-form.component').then(m => m.TopicFormComponent),
+        component: TopicFormComponent,
         title: 'Edit Topic — Debate Admin'
       }
     ]
@@ -99,30 +102,26 @@ export const debateAdminRoutes: Routes = [
   // ===================== Judge Management =====================
   {
     path: 'judges',
-    loadComponent: () =>
-      import('./components/judge-list/judge-list.component').then(m => m.JudgeListComponent),
+    component: JudgeListComponent,
     title: 'Judge Management — Debate Admin'
   },
 
   // ===================== Participant Management =====================
   {
     path: 'approvals',
-    loadComponent: () =>
-      import('./components/participant-approval/participant-approval.component').then(m => m.ParticipantApprovalComponent),
+    component: ParticipantApprovalComponent,
     title: 'Participant Approvals — Debate Admin'
   },
   {
     path: 'participants/:id',
-    loadComponent: () =>
-      import('./components/participant-detail/participant-detail.component').then(m => m.ParticipantDetailComponent),
+    component: ParticipantDetailComponent,
     title: 'Participant Details — Debate Admin'
   },
 
   // ===================== Category Management =====================
   {
     path: 'categories',
-    loadComponent: () =>
-      import('./components/category-list/category-list.component').then(m => m.CategoryListComponent),
+    component: CategoryListComponent,
     title: 'Categories — Debate Admin'
   },
 
@@ -132,26 +131,22 @@ export const debateAdminRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./components/reports/reports-main.component').then(m => m.ReportsMainComponent),
+        component: ReportsMainComponent,
         title: 'Reports — Debate Admin'
       },
       {
         path: 'students',
-        loadComponent: () =>
-          import('./components/reports/student-report/student-report.component').then(m => m.StudentReportComponent),
+        component: StudentReportComponent,
         title: 'Student Report — Debate Admin'
       },
       {
         path: 'debates',
-        loadComponent: () =>
-          import('./components/reports/debate-report/debate-report.component').then(m => m.DebateReportComponent),
+        component: DebateReportComponent,
         title: 'Debate Report — Debate Admin'
       },
       {
         path: 'analytics',
-        loadComponent: () =>
-          import('./components/reports/analytics/analytics.component').then(m => m.AnalyticsComponent),
+        component: DebateAnalyticsComponent,
         title: 'Analytics — Debate Admin'
       }
     ]
@@ -163,14 +158,12 @@ export const debateAdminRoutes: Routes = [
     children: [
       {
         path: 'users',
-        loadComponent: () =>
-          import('./components/settings/user-management/user-management.component').then(m => m.UserManagementComponent),
+        component: UserManagementComponent,
         title: 'User Management — Debate Admin'
       },
       {
         path: 'system',
-        loadComponent: () =>
-          import('./components/settings/system-settings/system-settings.component').then(m => m.SystemSettingsComponent),
+        component: SystemSettingsComponent,
         title: 'System Settings — Debate Admin'
       }
     ]

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Router, CanActivateFn, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 /**
  * Debate Admin Guard
@@ -13,8 +13,7 @@ export const debateAdminGuard: CanActivateFn = (
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const user = authService.currentUser();
-  const roles = authService.roles();
+  const user = authService.user();
 
   // Check if user is authenticated
   if (!user) {
@@ -24,16 +23,11 @@ export const debateAdminGuard: CanActivateFn = (
   }
 
   // Check if user has admin role
-  if (!roles.includes('Admin') && !roles.includes('DebateAdmin')) {
-    console.warn('Debate Admin Guard: User lacks required role');
+  if (!authService.hasRole('Admin')) {
+    console.warn('Debate Admin Guard: User lacks required Admin role');
     router.navigate(['/forbidden']);
     return false;
   }
-
-  // Additional security checks can be added here
-  // - Check if user's subscription is active
-  // - Verify admin panel access is enabled
-  // - Log admin access for audit trail
 
   return true;
 };
@@ -42,22 +36,22 @@ export const debateAdminGuard: CanActivateFn = (
  * Debate Moderator Guard
  * For moderators who can manage some but not all resources
  */
-export const debateModerator Guard: CanActivateFn = (
+export const debateModeratorGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const user = authService.currentUser();
-  const roles = authService.roles();
+  const user = authService.user();
 
   if (!user) {
     router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 
-  if (!roles.includes('Admin') && !roles.includes('DebateAdmin') && !roles.includes('Moderator')) {
+  // Allow Admin or Faculty to act as moderators
+  if (!authService.hasRole('Admin', 'Faculty')) {
     router.navigate(['/forbidden']);
     return false;
   }
@@ -76,23 +70,13 @@ export const debateJudgeGuard: CanActivateFn = (
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const user = authService.currentUser();
-  const roles = authService.roles();
+  const user = authService.user();
 
   if (!user) {
     router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 
-  const hasJudgeRole = roles.includes('Judge') ||
-    roles.includes('Moderator') ||
-    roles.includes('Admin') ||
-    roles.includes('DebateAdmin');
-
-  if (!hasJudgeRole) {
-    router.navigate(['/forbidden']);
-    return false;
-  }
-
+  // Allow any authenticated user to view debates
   return true;
 };

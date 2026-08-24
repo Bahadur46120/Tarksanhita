@@ -82,7 +82,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
                 @if (participant.student?.bio) {
                   <div class="detail-row bio">
                     <span class="label">Bio:</span>
-                    <span class="value">{{ participant.student.bio }}</span>
+                    <span class="value">{{ participant.student?.bio }}</span>
                   </div>
                 }
               </div>

@@ -216,7 +216,7 @@ import { AdminDashboardStats, Debate, Participant, DebateStatus } from './debate
             <div class="card">
               <h3>Categories</h3>
               <div class="categories-list">
-                @for (topic of stats().topicsStats.slice(0, 5); track topic.topicId) {
+                @for (topic of s.topicsStats.slice(0, 5); track topic.topicId) {
                   <div class="category-item">
                     <span class="cat-title">{{ topic.topicTitle | slice: 0: 20 }}...</span>
                     <span class="cat-badge">{{ topic.debateCount }} debates</span>
