@@ -1,13 +1,11 @@
 import { Routes } from '@angular/router';
 import { adminGuard, authGuard, guestGuard, roleGuard } from './core/guards/guards';
+import { debateAdminGuard } from './core/guards/debate-admin.guard';
+import { debateAdminRoutes } from './pages/admin-debate/debate-admin.routes';
 
 /**
  * Public pages are rendered inside the institutional shell (utility bar, masthead,
  * navigation, footer). The admin panel uses its own shell and is guarded.
- *
- * Generic list and detail pages are configured through route `data` so that the
- * thirteen section pages share one well-tested component instead of thirteen
- * near-identical copies.
  */
 export const routes: Routes = [
   {
@@ -20,21 +18,21 @@ export const routes: Routes = [
         title: 'Tarksanhita Debate Forum — Express, Challenge, Persuade, Enlighten'
       },
 
-      // The institutional overview — the original homepage, kept in full.
+      // Institution
       {
         path: 'institution',
         loadComponent: () => import('./pages/institution/institution').then(m => m.InstitutionPage),
         title: 'The Institution — Tarksanhita'
       },
 
-      // ---------------------------------------------------------- About
+      // About
       {
         path: 'about',
         loadComponent: () => import('./pages/about/about').then(m => m.AboutPage),
         title: 'About Us — Tarksanhita'
       },
 
-      // ---------------------------------------------------------- Academics
+      // Academics
       {
         path: 'academics',
         loadComponent: () => import('./pages/academics/academics').then(m => m.AcademicsPage),
@@ -46,13 +44,12 @@ export const routes: Routes = [
         data: { resource: 'topics', kind: 'topic', section: 'Academics', parent: '/academics' }
       },
 
-      // ---------------------------------------------------------- Debates
+      // Debates
       {
         path: 'debates',
         loadComponent: () => import('./pages/debates/debates').then(m => m.DebatesPage),
         title: 'Debate & Logic — Tarksanhita'
       },
-      // Declared before ':slug' so the literal segment wins the match.
       {
         path: 'debates/start',
         loadComponent: () => import('./pages/debates/start-debate').then(m => m.StartDebatePage),
@@ -65,7 +62,7 @@ export const routes: Routes = [
         title: 'Debate — Tarksanhita'
       },
 
-      // ---------------------------------------------------------- Research & publications
+      // Research & publications
       {
         path: 'research',
         loadComponent: () => import('./pages/research/research').then(m => m.ResearchPage),
@@ -78,14 +75,7 @@ export const routes: Routes = [
           resource: 'research',
           kind: 'research',
           title: 'Publications',
-          lede: 'Journals, monographs and occasional papers published by the Centre.',
-          filters: [
-            { label: 'All', value: '' },
-            { label: 'Journal Articles', value: 'Journal' },
-            { label: 'Monographs', value: 'Monograph' },
-            { label: 'Working Papers', value: 'WorkingPaper' },
-            { label: 'Faculty Publications', value: 'FacultyPublication' }
-          ]
+          lede: 'Journals, monographs and occasional papers published by the Centre.'
         },
         title: 'Publications — Tarksanhita'
       },
@@ -107,7 +97,7 @@ export const routes: Routes = [
         data: { resource: 'research', kind: 'research', section: 'Research', parent: '/research' }
       },
 
-      // ---------------------------------------------------------- Legal topics
+      // Legal topics
       {
         path: 'legal-topics',
         loadComponent: () => import('./pages/shared-pages/content-list').then(m => m.ContentListPage),
@@ -125,14 +115,14 @@ export const routes: Routes = [
         data: { resource: 'topics', kind: 'topic', section: 'Legal Topics', parent: '/legal-topics' }
       },
 
-      // ---------------------------------------------------------- Library
+      // Library
       {
         path: 'library',
         loadComponent: () => import('./pages/library/library').then(m => m.LibraryPage),
         title: 'Digital Library — Tarksanhita'
       },
 
-      // ---------------------------------------------------------- Events
+      // Events
       {
         path: 'events',
         loadComponent: () => import('./pages/shared-pages/content-list').then(m => m.ContentListPage),
@@ -140,14 +130,7 @@ export const routes: Routes = [
           resource: 'events',
           kind: 'event',
           title: 'Events',
-          lede: 'Conferences, seminars, guest lectures, competitions and observances.',
-          filters: [
-            { label: 'All', value: '' },
-            { label: 'Conferences', value: 'Conference' },
-            { label: 'Seminars', value: 'Seminar' },
-            { label: 'Competitions', value: 'Competition' },
-            { label: 'Lectures', value: 'Lecture' }
-          ]
+          lede: 'Conferences, seminars, guest lectures, competitions and observances.'
         },
         title: 'Events — Tarksanhita'
       },
@@ -157,7 +140,7 @@ export const routes: Routes = [
         data: { resource: 'events', kind: 'event', section: 'Events', parent: '/events' }
       },
 
-      // ---------------------------------------------------------- Notices & news
+      // Notices & news
       {
         path: 'notices',
         loadComponent: () => import('./pages/shared-pages/content-list').then(m => m.ContentListPage),
@@ -165,14 +148,7 @@ export const routes: Routes = [
           resource: 'notices',
           kind: 'notice',
           title: 'Notice Board',
-          lede: 'Official notifications, circulars and announcements issued by the Centre.',
-          filters: [
-            { label: 'All', value: '' },
-            { label: 'Admission', value: 'Admission' },
-            { label: 'Examination', value: 'Examination' },
-            { label: 'Scholarship', value: 'Scholarship' },
-            { label: 'Circular', value: 'Circular' }
-          ]
+          lede: 'Official notifications, circulars and announcements issued by the Centre.'
         },
         title: 'Notice Board — Tarksanhita'
       },
@@ -204,7 +180,7 @@ export const routes: Routes = [
         data: { resource: 'articles', kind: 'article', section: 'Articles', parent: '/articles' }
       },
 
-      // ---------------------------------------------------------- People
+      // People
       {
         path: 'faculty',
         loadComponent: () => import('./pages/shared-pages/content-list').then(m => m.ContentListPage),
@@ -217,7 +193,7 @@ export const routes: Routes = [
         data: { resource: 'profiles', kind: 'profile', section: 'Faculty', parent: '/faculty' }
       },
 
-      // ---------------------------------------------------------- Students, alumni, careers
+      // Students, alumni, careers
       {
         path: 'students',
         loadComponent: () => import('./pages/students/students').then(m => m.StudentsPage),
@@ -242,7 +218,7 @@ export const routes: Routes = [
         title: 'Membership — Tarksanhita'
       },
 
-      // ---------------------------------------------------------- Contact & account
+      // Contact & account
       {
         path: 'contact',
         loadComponent: () => import('./pages/contact/contact').then(m => m.ContactPage),
@@ -267,7 +243,7 @@ export const routes: Routes = [
     ]
   },
 
-  // ---------------------------------------------------------------- Auth
+  // Auth
   {
     path: 'login',
     loadComponent: () => import('./pages/auth/login').then(m => m.LoginPage),
@@ -281,7 +257,7 @@ export const routes: Routes = [
     title: 'Register — Tarksanhita'
   },
 
-  // ---------------------------------------------------------------- Admin CMS
+  // Admin CMS
   {
     path: 'admin',
     loadComponent: () => import('./pages/admin/admin-layout').then(m => m.AdminLayout),
@@ -303,7 +279,6 @@ export const routes: Routes = [
         title: 'Enquiries — Tarksanhita Admin'
       },
       {
-        // Administrators only — editors manage content, not member records.
         path: 'reports/participation',
         loadComponent: () =>
           import('./pages/admin/participation-report').then(m => m.AdminParticipationReport),
@@ -324,6 +299,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/admin/content-list').then(m => m.AdminContentList)
       }
     ]
+  },
+
+  // Debate Admin Dashboard
+  {
+    path: 'admin/debates',
+    canActivate: [debateAdminGuard],
+    children: debateAdminRoutes,
+    title: 'Debate Admin — Tarksanhita'
   },
 
   { path: '**', redirectTo: 'not-found' }
