@@ -4,6 +4,6 @@ export const environment = {
   /** Built-in accounts (see core/demo-accounts.ts) sign in without the API. */
   demoLogin: true,
   siteName: 'Tarksanhita',
-  tagline: 'The Debate on Logic',
+  tagline: 'The Debate on1 Logic',
   subtitle: 'Centre for Law, Logic, Debate & Knowledge'
 };
