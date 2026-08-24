@@ -696,6 +696,29 @@ body.hc a{text-decoration:underline}
 .hint-box b{display:block;margin-bottom:4px;color:var(--navy-800)}
 .hint-box code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.74rem;color:var(--navy-800)}
 
+.demo-list{list-style:none;margin:6px 0 8px;padding:0;display:flex;flex-direction:column;gap:5px}
+.demo-fill{
+  display:flex;width:100%;gap:10px;align-items:baseline;justify-content:space-between;
+  background:var(--surface,#fff);border:1px solid var(--line);border-radius:2px;
+  padding:7px 9px;font:inherit;color:var(--ink-soft);text-align:left;cursor:pointer;
+  transition:border-color .15s ease,background .15s ease;
+}
+.demo-fill:hover:not(:disabled){border-color:var(--gold-500);background:var(--surface-alt)}
+.demo-fill:focus-visible{outline:2px solid var(--gold-500);outline-offset:1px}
+.demo-fill:disabled{opacity:.6;cursor:default}
+.demo-fill span{white-space:nowrap;font-size:.72rem;color:var(--ink-soft)}
+
+/* ---------------------------------------------------------- report tables */
+.report-table th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+.report-table th.sortable:hover{color:var(--gold-500)}
+.report-table th.num,.report-table td.num{text-align:right;font-variant-numeric:tabular-nums}
+.report-table tr.detail-row>td{background:var(--surface-alt);padding:14px 16px}
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.detail-grid b{display:block;margin-bottom:6px;font-size:.8rem;color:var(--navy-800)}
+.detail-grid ul{margin:0;padding-left:18px;font-size:.8rem;line-height:1.7;color:var(--ink-soft)}
+.detail-grid p{margin:0;font-size:.8rem}
+.hint-box .badge{margin-right:6px}
+
 @media(max-width:820px){
   .auth-wrap{padding:0}
   .auth-card{grid-template-columns:minmax(0,1fr);max-width:520px;border-radius:0;min-height:100vh}

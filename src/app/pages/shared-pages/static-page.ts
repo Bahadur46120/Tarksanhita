@@ -22,27 +22,27 @@ interface StaticContent {
  */
 const PAGES: Record<string, StaticContent> = {
   alumni: {
-    title: 'Alumni',
-    lede: 'The Tarksanhita Alumni Association keeps former students connected to the Centre, to each other and to the work.',
+    title: 'Past Members',
+    lede: 'The Tarksanhita Members\' Association keeps past speakers and adjudicators connected to the Centre, to each other and to the work.',
     sections: [
       {
-        heading: 'Alumni Association',
+        heading: 'Members\' Association',
         paragraphs: [
-          'Membership is open to every person who has completed a certificate, diploma, postgraduate or doctoral programme at the Centre. There is no membership fee.',
-          'The Association runs a mentoring scheme pairing recent graduates with practising members, maintains a searchable directory, and convenes an annual meet on the Saturday closest to Constitution Day.'
+          'The Association is open to every person who has spoken, adjudicated or convened at the Centre, whether or not their membership is current. There is no fee to join it.',
+          'It runs a pairing scheme that puts newer speakers alongside experienced counsel, maintains a searchable directory, and convenes an annual meet on the Saturday closest to Constitution Day.'
         ],
         bullets: [
-          'Register as alumni and receive the quarterly newsletter',
-          'Join the mentoring panel for current students',
-          'Nominate a peer for the Distinguished Alumnus award',
-          'Support a scholarship or endow a moot court prize'
+          'Join the Association and receive the quarterly newsletter',
+          'Sit on the pairing panel for newer speakers',
+          'Nominate a peer for the Distinguished Speaker award',
+          'Endow a moot court prize or a competition bursary'
         ]
       },
       {
         heading: 'Staying Involved',
         paragraphs: [
-          'Alumni adjudicate at internal debates, sit on mock interview panels for the placement cell, and contribute case notes to the Centre\'s repository.',
-          'Those wishing to teach a short module or supervise a dissertation should write to the Academic Head with a brief outline.'
+          'Past members adjudicate at internal debates, sit on the panels that set motions, and contribute case notes and commentary to the Centre\'s repository.',
+          'Those wishing to deliver a lecture or convene a round table should write to the Convenor with a brief outline.'
         ]
       }
     ],
@@ -51,26 +51,26 @@ const PAGES: Record<string, StaticContent> = {
 
   careers: {
     title: 'Careers',
-    lede: 'Academic, research and administrative appointments at the Centre, and placement support for our students.',
+    lede: 'Research, adjudication and administrative appointments at the Centre, and the panels members can be appointed to.',
     sections: [
       {
         heading: 'Working at Tarksanhita',
         paragraphs: [
-          'The Centre recruits faculty on the strength of teaching ability, published work and willingness to be argued with. Appointments are made against published criteria and every shortlisted candidate delivers an open lecture.',
+          'The Centre appoints fellows and adjudicators on the strength of published work, command of a subject bench and willingness to be argued with. Appointments are made against published criteria and every shortlisted candidate delivers an open lecture.',
           'Administrative and library appointments are advertised as they arise. All positions are open to applicants regardless of background, and the Centre operates a published equal-opportunity policy.'
         ],
         bullets: [
-          'Faculty and visiting-faculty appointments',
-          'Research fellowships and doctoral assistantships',
-          'Library, examinations and administrative roles',
-          'Internships for enrolled students'
+          'Research fellowships, resident and visiting',
+          'Adjudicators and members of the moot court bench',
+          'Library, events and administrative roles',
+          'Editorial assistants for the journals and working-paper series'
         ]
       },
       {
-        heading: 'Placement Cell',
+        heading: 'Panels & Honorary Roles',
         paragraphs: [
-          'The placement cell coordinates internships and recruitment for students in their final year, maintains relationships with chambers, firms and public-interest organisations, and runs a preparation programme covering written assessment and interview.',
-          'Current openings are posted to the notice board; students should register with the cell at the start of the academic year.'
+          'Members in good standing may be appointed to the panels that draft motions, write briefing packs, adjudicate competition rounds or referee submissions to the journals. These roles are honorary; travel and entry costs are reimbursed.',
+          'Openings are posted to the notice board. Expressions of interest may be sent at any time and are considered when a panel is next constituted.'
         ]
       }
     ],
@@ -78,37 +78,37 @@ const PAGES: Record<string, StaticContent> = {
   },
 
   admissions: {
-    title: 'Admissions',
-    lede: 'Applications for the 2026–27 academic session. Read the eligibility conditions before applying.',
+    title: 'Membership',
+    lede: 'Join the Centre as a speaking member, an associate or a subscribing institution. Membership runs for the calendar year 2026–27.',
     sections: [
       {
-        heading: 'How to Apply',
+        heading: 'How to Join',
         paragraphs: [
-          'Applications are made online. Create an account, complete the form, upload the supporting documents listed against your chosen programme, and pay the application fee. An acknowledgement is issued immediately; the admission cell contacts shortlisted applicants directly.',
-          'Applicants to postgraduate and doctoral programmes are additionally required to submit a writing sample and, for doctoral study, a research proposal of not more than 2,000 words.'
+          'Applications are made online. Create an account, complete the membership form, upload the documents listed against the category you are applying under, and pay the annual subscription. An acknowledgement is issued immediately; the membership office writes to you once your category is confirmed.',
+          'Anyone applying as a speaking member is asked for a short writing sample — a case note, a motion brief or a published piece — so that the convenors can place them on a suitable bench.'
         ],
         bullets: [
-          'Certificate and diploma programmes — rolling admission',
-          'Postgraduate programmes — one intake, closing 30 September',
-          'Doctoral programmes — proposal and interview',
-          'Fee waivers available on a merit-cum-means basis'
+          'Speaking members — argue motions and enter competitions',
+          'Associate members — attend debates, lectures and conferences',
+          'Adjudicator panel — by nomination, after a written round',
+          'Institutional subscription — for debating societies and chambers'
         ]
       },
       {
         heading: 'Documents Required',
         paragraphs: [
-          'Proof of identity, evidence of prior qualification, transcripts, and a passport-size photograph. Applicants claiming a fee waiver should attach the income declaration prescribed in the prospectus.',
-          'Original documents are verified at enrolment. An offer made on the basis of a misdescription is withdrawn.'
+          'Proof of identity, a passport-size photograph, and — for the speaking category — the writing sample described above. Applicants seeking a concessional subscription should attach the income declaration set out in the Centre handbook.',
+          'Originals are verified once, when the membership card is issued. A membership obtained on a misdescription is withdrawn.'
         ]
       },
       {
-        heading: 'Admission Helpdesk',
+        heading: 'Membership Helpdesk',
         paragraphs: [
-          'Counselling is available on working days between 10:00 and 17:00 IST, in person at the admissions office or by telephone. Written queries are answered within two working days.'
+          'The membership office is open on working days between 10:00 and 17:00 IST, in person or by telephone, for help with joining a motion or registering for an event. Written queries are answered within two working days.'
         ]
       }
     ],
-    cta: { label: 'Contact the Admissions Cell', link: '/contact' }
+    cta: { label: 'Contact the Membership Office', link: '/contact' }
   }
 };
 

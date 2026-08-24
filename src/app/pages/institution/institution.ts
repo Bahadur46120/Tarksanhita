@@ -41,7 +41,7 @@ export class InstitutionPage implements OnInit {
     { key: 'about', label: 'About' },
     { key: 'mission', label: 'Our Mission' },
     { key: 'vision', label: 'Our Vision' },
-    { key: 'excellence', label: 'Academic Excellence' },
+    { key: 'excellence', label: 'Standards of Debate' },
     { key: 'research', label: 'Legal Research' },
     { key: 'debate', label: 'Debate & Logic' }
   ];
@@ -86,6 +86,6 @@ export class InstitutionPage implements OnInit {
   }
 
   levelFor(index: number): string {
-    return ['Diploma · PG', 'PG · Doctoral', 'PG', 'Certificate · PG'][index % 4];
+    return ['Moot Court', 'Policy Debate', 'Public Debate', 'Competition Round'][index % 4];
   }
 }

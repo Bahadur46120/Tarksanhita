@@ -77,7 +77,7 @@ export const RESOURCES: ResourceDef[] = [
       { name: 'department', label: 'Issuing department', type: 'text', required: true },
       { name: 'referenceNo', label: 'Reference number', type: 'text' },
       { name: 'category', label: 'Category', type: 'select', default: 'General',
-        options: ['Admission', 'Examination', 'Result', 'Circular', 'Scholarship', 'Debate', 'Research', 'General'] },
+        options: ['Membership', 'Event', 'Competition', 'Circular', 'Bursary', 'Debate', 'Research', 'General'] },
       { name: 'noticeDate', label: 'Notice date', type: 'date', required: true },
       { name: 'expiresAt', label: 'Expires on', type: 'date', hint: 'Leave blank for no expiry. Expired notices leave the public site automatically.' },
       { name: 'attachmentUrl', label: 'Attachment URL', type: 'url' },
@@ -138,7 +138,7 @@ export const RESOURCES: ResourceDef[] = [
     fields: [
       { name: 'title', label: 'Event title', type: 'text', required: true, wide: true },
       { name: 'summary', label: 'Summary', type: 'textarea', wide: true },
-      { name: 'body', label: 'Full programme', type: 'richtext', wide: true },
+      { name: 'body', label: 'Full agenda', type: 'richtext', wide: true },
       { name: 'eventType', label: 'Type', type: 'select', default: 'Seminar',
         options: ['Conference', 'Seminar', 'Competition', 'Lecture', 'Workshop', 'Observance', 'Orientation'] },
       { name: 'venue', label: 'Venue', type: 'text', required: true },
@@ -230,8 +230,8 @@ export const RESOURCES: ResourceDef[] = [
       { label: 'Dissertation', value: 'Dissertation' },
       { label: 'Case study', value: 'CaseStudy' },
       { label: 'Monograph', value: 'Monograph' },
-      { label: 'Faculty publication', value: 'FacultyPublication' },
-      { label: 'Student research', value: 'StudentResearch' }
+      { label: 'Fellow publication', value: 'FacultyPublication' },
+      { label: 'Member research', value: 'StudentResearch' }
     ],
     columns: [
       { name: 'title', label: 'Title' },
@@ -263,7 +263,7 @@ export const RESOURCES: ResourceDef[] = [
     key: 'topics',
     label: 'Legal Topics',
     singular: 'Legal topic',
-    description: 'Subject clusters used by the academics and topics pages.',
+    description: 'Subject clusters used by the topic pages and the Centre\'s activity listings.',
     icon: 'scale',
     columns: [
       { name: 'title', label: 'Topic' },
@@ -287,7 +287,7 @@ export const RESOURCES: ResourceDef[] = [
     key: 'library',
     label: 'Library',
     singular: 'Library resource',
-    description: 'Books, journals, statutes, case law and study material.',
+    description: 'Books, journals, statutes, case law and reference material.',
     icon: 'book',
     filters: [
       { label: 'All types', value: '' },
@@ -298,7 +298,7 @@ export const RESOURCES: ResourceDef[] = [
       { label: 'Case law', value: 'CaseLaw' },
       { label: 'Constitution', value: 'Constitution' },
       { label: 'Database', value: 'Database' },
-      { label: 'Study material', value: 'StudyMaterial' }
+      { label: 'Reference material', value: 'StudyMaterial' }
     ],
     columns: [
       { name: 'title', label: 'Title' },
@@ -332,14 +332,14 @@ export const RESOURCES: ResourceDef[] = [
     key: 'profiles',
     label: 'Profiles',
     singular: 'Profile',
-    description: 'Leadership, faculty and council profiles.',
+    description: 'Leadership, fellows and council profiles.',
     icon: 'people',
     filters: [
       { label: 'All types', value: '' },
       { label: 'Founder', value: 'Founder' },
       { label: 'Director', value: 'Director' },
-      { label: 'Academic Head', value: 'AcademicHead' },
-      { label: 'Faculty', value: 'Faculty' },
+      { label: 'Head of Research', value: 'AcademicHead' },
+      { label: 'Fellow', value: 'Faculty' },
       { label: 'Council', value: 'Council' },
       { label: 'Adjudicator', value: 'Adjudicator' }
     ],

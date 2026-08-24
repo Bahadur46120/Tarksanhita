@@ -47,7 +47,7 @@ function passwordsMatch(group: AbstractControl): ValidationErrors | null {
 
         <div class="auth-form">
           <h1>Create an Account</h1>
-          <p class="sub">Registration gives you access to debates, saved resources and event registration.</p>
+          <p class="sub">Registration gives you access to debates, Centre events and the digital library.</p>
 
           <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
             <div class="form-grid">
@@ -70,7 +70,7 @@ function passwordsMatch(group: AbstractControl): ValidationErrors | null {
               </div>
 
               <div class="field">
-                <label for="r-enrol">Enrolment no. <span class="muted">(if enrolled)</span></label>
+                <label for="r-enrol">Membership ID <span class="muted">(if you already hold one)</span></label>
                 <input id="r-enrol" formControlName="enrolmentNo" />
               </div>
 
@@ -104,7 +104,7 @@ function passwordsMatch(group: AbstractControl): ValidationErrors | null {
 
           <div class="hint-box">
             <b>After registration</b>
-            New accounts receive the standard member role. Faculty, editor and administrative
+            New accounts receive the standard member role. Fellow, editor and administrative
             rights are granted by an administrator after verification.
           </div>
 

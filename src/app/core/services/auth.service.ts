@@ -1,8 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, delay, of, tap, throwError } from 'rxjs';
 import { ApiService } from './api.service';
 import { ApiMessage, AppUser, AuthResponse, LoginRequest, RegisterRequest, Role } from '../models/models';
+import { demoAccountByEmail, demoAuthResponse, findDemoAccount, isDemoEmail, isDemoUser } from '../demo-accounts';
+import { environment } from '../../../environments/environment';
 
 const TOKEN_KEY = 'ts.access';
 const REFRESH_KEY = 'ts.refresh';
@@ -39,7 +42,27 @@ export class AuthService {
     return roles.some(r => mine.includes(r));
   }
 
+  /** True while the current session came from a built-in demo account. */
+  readonly isDemoSession = computed(() => isDemoUser(this._user()));
+
   login(req: LoginRequest): Observable<AuthResponse> {
+    if (environment.demoLogin && isDemoEmail(req.email)) {
+      const account = findDemoAccount(req.email, req.password);
+
+      // A demo address never falls through to the API: a wrong password has to
+      // read as a rejected sign-in, not as an unreachable server.
+      if (!account) {
+        return throwError(
+          () => new HttpErrorResponse({ status: 401, statusText: 'Unauthorized', url: 'demo://auth/login' })
+        );
+      }
+
+      return of(demoAuthResponse(account)).pipe(
+        delay(300),
+        tap(res => this.store(res))
+      );
+    }
+
     return this.api.post<AuthResponse>('auth/login', req).pipe(tap(res => this.store(res)));
   }
 
@@ -48,6 +71,17 @@ export class AuthService {
   }
 
   refresh(): Observable<AuthResponse> {
+    const current = this._user();
+
+    // A demo session has no server-side token to renew — reissue it locally so a
+    // stray 401 from the API cannot sign the demo user out.
+    if (environment.demoLogin && isDemoUser(current)) {
+      const account = demoAccountByEmail(current!.email);
+      if (account) {
+        return of(demoAuthResponse(account)).pipe(tap(res => this.store(res)));
+      }
+    }
+
     return this.api
       .post<AuthResponse>('auth/refresh', {
         accessToken: this.accessToken ?? '',
@@ -61,6 +95,12 @@ export class AuthService {
   }
 
   logout(redirectTo: string | null = '/'): void {
+    // A demo session exists only in this browser — nothing to tell the server.
+    if (this.isDemoSession()) {
+      this.clear(redirectTo);
+      return;
+    }
+
     // Tell the server to drop the refresh token, but clear locally regardless of
     // the outcome — the user has asked to sign out.
     this.api.post<ApiMessage>('auth/logout', {}).subscribe({

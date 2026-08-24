@@ -11,7 +11,7 @@ export interface NavItem {
   children?: NavChild[];
 }
 
-/** The nine top-level sections of the portal and their dropdown contents. */
+/** The top-level sections of the portal and their dropdown contents. */
 export const MAIN_NAV: NavItem[] = [
   { label: 'Home', link: '/' },
   {
@@ -28,17 +28,6 @@ export const MAIN_NAV: NavItem[] = [
     ]
   },
   {
-    label: 'Academics',
-    link: '/academics',
-    children: [
-      { label: 'Programmes Offered', link: '/academics' },
-      { label: 'Faculty Directory', link: '/faculty' },
-      { label: 'Admissions', link: '/admissions' },
-      { label: 'Notices', link: '/notices' },
-      { label: 'Events', link: '/events' }
-    ]
-  },
-  {
     label: 'Debates',
     link: '/debates',
     children: [
@@ -50,49 +39,40 @@ export const MAIN_NAV: NavItem[] = [
     ]
   },
   {
+    label: 'Events',
+    link: '/events',
+    children: [
+      { label: 'Upcoming Events', link: '/events' },
+      { label: 'Competitions', link: '/events' },
+      { label: 'Conferences', link: '/events' },
+      { label: 'Guest Lectures', link: '/events' }
+    ]
+  },
+  {
     label: 'Library',
     link: '/library',
     children: [
       { label: 'Digital Library', link: '/library' },
       { label: 'Bare Acts', link: '/library' },
       { label: 'Case Laws', link: '/library' },
-      { label: 'Study Materials', link: '/library' },
-      // Kept here so commentary stays reachable now that Research and
-      // Publications have come off the main navigation.
-      { label: 'Articles & Commentary', link: '/articles' }
+      // Kept here so commentary and scholarship stay reachable now that
+      // Research and Publications have come off the main navigation.
+      { label: 'Articles & Commentary', link: '/articles' },
+      { label: 'Research Papers', link: '/research' }
     ]
   },
-  {
-    label: 'Events',
-    link: '/events',
-    children: [
-      { label: 'Upcoming Events', link: '/events' },
-      { label: 'Conferences', link: '/events' },
-      { label: 'Competitions', link: '/events' },
-      { label: 'Guest Lectures', link: '/events' }
-    ]
-  },
-  {
-    label: 'Students',
-    link: '/students',
-    children: [
-      { label: 'Student Corner', link: '/students' },
-      { label: 'My Account', link: '/profile' },
-      { label: 'Notices', link: '/notices' },
-      { label: 'Downloads', link: '/students' }
-    ]
-  },
+  { label: 'Notices', link: '/notices' },
   { label: 'Careers', link: '/careers' },
   { label: 'Contact Us', link: '/contact' }
 ];
 
 export const QUICK_LINKS: NavChild[] = [
-  { label: 'Admissions', link: '/admissions' },
-  { label: 'Academic Calendar', link: '/events' },
-  { label: 'Examinations', link: '/students' },
-  { label: 'Results', link: '/students' },
-  { label: 'Notifications', link: '/notices' },
-  { label: 'Downloads', link: '/students' },
+  { label: 'Active Debates', link: '/debates' },
+  { label: 'Propose a Motion', link: '/debates/start' },
+  { label: 'Upcoming Events', link: '/events' },
+  { label: 'Notices', link: '/notices' },
   { label: 'Library', link: '/library' },
+  { label: 'Articles', link: '/articles' },
+  { label: 'News', link: '/news' },
   { label: 'Contact', link: '/contact' }
 ];

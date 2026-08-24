@@ -21,8 +21,9 @@ import { RouterLink } from '@angular/router';
               </div>
             </div>
             <p>
-              A centre for law, logic, debate and knowledge — training jurists who reason
-              from evidence and argue in good faith. Established 2016.
+              A centre for law, logic, debate and knowledge — convening motions, moot
+              courts and public lectures for members who reason from evidence and argue
+              in good faith. Established 2016.
             </p>
             <div class="foot-social">
               <a href="#" aria-label="Facebook">f</a>
@@ -36,24 +37,23 @@ import { RouterLink } from '@angular/router';
           <div>
             <h5>Quick Links</h5>
             <ul class="foot-links">
-              <li><a routerLink="/admissions">Admissions</a></li>
-              <li><a routerLink="/events">Academic Calendar</a></li>
-              <li><a routerLink="/students">Examinations</a></li>
-              <li><a routerLink="/students">Results</a></li>
-              <li><a routerLink="/notices">Notifications</a></li>
-              <li><a routerLink="/students">Downloads</a></li>
+              <li><a routerLink="/debates">Active Debates</a></li>
+              <li><a routerLink="/events">Upcoming Events</a></li>
+              <li><a routerLink="/notices">Notices</a></li>
+              <li><a routerLink="/library">Library</a></li>
+              <li><a routerLink="/contact">Contact</a></li>
               <li><a routerLink="/careers">Careers</a></li>
             </ul>
           </div>
 
           <div>
-            <h5>Academics</h5>
+            <h5>The Centre</h5>
             <ul class="foot-links">
-              <li><a routerLink="/academics">Programmes</a></li>
-              <li><a routerLink="/faculty">Faculty Directory</a></li>
-              <li><a routerLink="/debates">Debate &amp; Moot</a></li>
+              <li><a routerLink="/institution">The Institution</a></li>
+              <li><a routerLink="/faculty">Governing Council</a></li>
+              <li><a routerLink="/events">Moot Courts &amp; Competitions</a></li>
               <li><a routerLink="/library">Digital Library</a></li>
-              <li><a routerLink="/students">Student Corner</a></li>
+              <li><a routerLink="/research">Research &amp; Commentary</a></li>
             </ul>
           </div>
 
@@ -71,9 +71,9 @@ import { RouterLink } from '@angular/router';
           <div>
             <h5>Contact</h5>
             <ul class="foot-contact">
-              <li><span class="ic">&#9673;</span><span>Tarksanhita Campus, Knowledge Park Road,<br />New Delhi 110 001, India</span></li>
-              <li><span class="ic">&#9990;</span><span>+91 11 4000 0000<br />+91 11 4000 0001 (Admissions)</span></li>
-              <li><span class="ic">&#9993;</span><span>info&#64;tarksanhita.in<br />admissions&#64;tarksanhita.in</span></li>
+              <li><span class="ic">&#9673;</span><span>Tarksanhita Centre, Knowledge Park Road,<br />New Delhi 110 001, India</span></li>
+              <li><span class="ic">&#9990;</span><span>+91 11 4000 0000<br />+91 11 4000 0001 (Events Desk)</span></li>
+              <li><span class="ic">&#9993;</span><span>info&#64;tarksanhita.in<br />events&#64;tarksanhita.in</span></li>
               <li><span class="ic">&#9719;</span><span>Mon&ndash;Sat, 09:30&ndash;17:30 IST</span></li>
             </ul>
           </div>

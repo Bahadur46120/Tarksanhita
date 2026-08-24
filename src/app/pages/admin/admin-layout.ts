@@ -47,6 +47,9 @@ import { RESOURCES } from './resources';
               Users
               @if (stats(); as s) { <span class="n">{{ s.users }}</span> }
             </a>
+            <a routerLink="/admin/reports/participation" routerLinkActive="active">
+              Student Participation
+            </a>
           }
           <a routerLink="/admin/contacts" routerLinkActive="active">
             Enquiries

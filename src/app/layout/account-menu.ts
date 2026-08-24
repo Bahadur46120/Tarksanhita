@@ -10,9 +10,9 @@ const ROLE_ORDER: Role[] = ['Admin', 'Editor', 'Faculty', 'Student', 'User'];
 const ROLE_LABEL: Record<Role, string> = {
   Admin: 'Administrator',
   Editor: 'Editor',
-  Faculty: 'Faculty',
-  Student: 'Student',
-  User: 'Member'
+  Faculty: 'Fellow',
+  Student: 'Member',
+  User: 'Registered User'
 };
 
 /**

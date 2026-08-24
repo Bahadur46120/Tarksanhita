@@ -26,9 +26,9 @@ import { environment } from '../../environments/environment';
 
         <div class="head-right">
           <div class="accred">
-            <div class="seal">A+</div>
+            <div class="seal">TS</div>
             <div class="txt">
-              <b>Accredited Institution</b>
+              <b>Registered Institution</b>
               <small>Estd. 2016 &middot; Reg. No. TS/2016/0421</small>
             </div>
           </div>
@@ -58,7 +58,7 @@ export class SiteHeader {
   readAloud(): void {
     this.ui.speak(
       'Tarksanhita. The Debate on Logic. Centre for Law, Logic, Debate and Knowledge. ' +
-      'Use the main navigation to reach academics, debates, research, library and student sections.'
+      'Use the main navigation to reach debates, events, the library, notices and the sections about the Centre.'
     );
   }
 }

@@ -101,12 +101,12 @@ import { PageBanner } from '../../shared/components/ui';
                 <p>
                   <b>Telephone</b><br />
                   +91 11 4000 0000 (Reception)<br />
-                  +91 11 4000 0001 (Admissions)
+                  +91 11 4000 0001 (Membership)
                 </p>
                 <p>
                   <b>Email</b><br />
                   info&#64;tarksanhita.in<br />
-                  admissions&#64;tarksanhita.in<br />
+                  membership&#64;tarksanhita.in<br />
                   library&#64;tarksanhita.in
                 </p>
                 <p>
@@ -118,7 +118,7 @@ import { PageBanner } from '../../shared/components/ui';
 
             <div class="side-note">
               <b>Grievance Redressal</b>
-              Complaints relating to academic matters, harassment or ragging should be addressed to the
+              Complaints relating to membership, conduct or harassment should be addressed to the
               Registrar and are handled under the Centre's published grievance procedure.
             </div>
           </aside>
@@ -133,7 +133,7 @@ export class ContactPage {
   private readonly api = inject(ApiService);
   private readonly snack = inject(MatSnackBar);
 
-  readonly departments = ['General', 'Admissions', 'Library', 'Research', 'Grievance', 'Media'];
+  readonly departments = ['General', 'Membership', 'Library', 'Research', 'Grievance', 'Media'];
   readonly busy = signal(false);
   readonly sent = signal(false);
 

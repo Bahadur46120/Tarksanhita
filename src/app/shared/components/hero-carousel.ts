@@ -27,7 +27,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@
           <circle cx="400" cy="256" r="17" fill="none" stroke="#e8cd74" stroke-width="2.2"/>
           <g fill="#e8cd74" opacity=".22"><circle cx="700" cy="80" r="52"/><circle cx="90" cy="360" r="34"/></g>
         </svg>
-        <div class="slide-cap"><div class="k">The Campus</div><h3>A Home for Argument, Evidence and Enquiry</h3><p>Purpose-built halls, moot courts and a research library at the heart of the Tarksanhita academic block.</p></div>
+        <div class="slide-cap"><div class="k">The Centre</div><h3>A Home for Argument, Evidence and Enquiry</h3><p>Debating halls, moot courts and a reference library at the heart of the Tarksanhita premises.</p></div>
       </div>
 
       <div class="slide" [class.active]="index() === 1" role="group" aria-label="2 of 7">
@@ -43,7 +43,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@
           <g stroke="#e8cd74" fill="none" stroke-width="2" opacity=".55"><path d="M120 350h180M120 350V300a30 30 0 0130-30h120M660 60v60"/></g>
           <g fill="#c9a227" opacity=".14"><circle cx="140" cy="120" r="58"/><circle cx="670" cy="330" r="44"/></g>
         </svg>
-        <div class="slide-cap"><div class="k">Legal Education</div><h3>Law Taught as a Discipline of Reasoning</h3><p>Doctrine, procedure and jurisprudence delivered through case method, clinic work and structured argument.</p></div>
+        <div class="slide-cap"><div class="k">Moot Court</div><h3>Law Contested as a Discipline of Reasoning</h3><p>Doctrine, procedure and jurisprudence tested in moot courts, mock benches and structured argument before adjudicators.</p></div>
       </div>
 
       <div class="slide" [class.active]="index() === 2" role="group" aria-label="3 of 7">
@@ -77,7 +77,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@
           </g>
           <g fill="#c9a227" opacity=".12"><circle cx="660" cy="90" r="54"/></g>
         </svg>
-        <div class="slide-cap"><div class="k">Research</div><h3>Evidence-Led Legal Scholarship</h3><p>Doctrinal, empirical and comparative research across constitutional, criminal and technology law.</p></div>
+        <div class="slide-cap"><div class="k">Research &amp; Commentary</div><h3>Evidence-Led Legal Scholarship</h3><p>Doctrinal, empirical and comparative papers and commentary across constitutional, criminal and technology law.</p></div>
       </div>
 
       <div class="slide" [class.active]="index() === 4" role="group" aria-label="5 of 7">
@@ -93,7 +93,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@
           <g stroke="#e8cd74" stroke-width="1.8" fill="none" opacity=".5"><path d="M120 340h560"/><path d="M660 120h80v54h-80z"/><path d="M660 120l40 24 40-24"/></g>
           <g fill="#c9a227" opacity=".12"><circle cx="110" cy="120" r="50"/></g>
         </svg>
-        <div class="slide-cap"><div class="k">Students</div><h3>A Community of Careful Thinkers</h3><p>Mentored cohorts, student-run journals, moot teams and an active grievance and welfare framework.</p></div>
+        <div class="slide-cap"><div class="k">Members</div><h3>A Community of Careful Thinkers</h3><p>Debating members, adjudicators, moot teams and contributors to the Centre&rsquo;s commentary and journals.</p></div>
       </div>
 
       <div class="slide" [class.active]="index() === 5" role="group" aria-label="6 of 7">
@@ -109,7 +109,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@
           </g>
           <g fill="#c9a227" opacity=".12"><circle cx="700" cy="80" r="46"/><circle cx="90" cy="300" r="40"/></g>
         </svg>
-        <div class="slide-cap"><div class="k">Digital Library</div><h3>Bare Acts, Reports and Journals in One Place</h3><p>A curated collection of statutes, law reports, e-journals and study material, searchable end to end.</p></div>
+        <div class="slide-cap"><div class="k">Digital Library</div><h3>Bare Acts, Reports and Journals in One Place</h3><p>A curated collection of statutes, law reports, e-journals and briefing material, searchable end to end.</p></div>
       </div>
 
       <div class="slide" [class.active]="index() === 6" role="group" aria-label="7 of 7">
@@ -127,7 +127,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@
           </g>
           <g fill="#c9a227" opacity=".12"><circle cx="700" cy="330" r="50"/></g>
         </svg>
-        <div class="slide-cap"><div class="k">Seminars &amp; Conferences</div><h3>Public Reasoning, Publicly Conducted</h3><p>Guest lectures, doctrinal colloquia and national conferences open to students and practitioners.</p></div>
+        <div class="slide-cap"><div class="k">Seminars &amp; Conferences</div><h3>Public Reasoning, Publicly Conducted</h3><p>Guest lectures, doctrinal colloquia and national conferences open to members and practitioners.</p></div>
       </div>
       </div>
 

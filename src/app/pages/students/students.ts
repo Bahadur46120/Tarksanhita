@@ -20,19 +20,19 @@ interface CornerLink {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ts-page-banner
-      heading="Student Corner"
-      lede="Results, examination forms, assignments, scholarships, certificates and downloads — in one place." />
+      heading="Member Corner"
+      lede="Join a live motion, register for an event, and download rulebooks, briefing packs and participation records — in one place." />
 
     <main class="section">
       <div class="container">
 
         @if (!auth.isAuthenticated()) {
           <div class="side-note" style="margin-bottom:22px">
-            <b>Sign in for personalised records</b>
-            Results, assignment submission and certificates are available once you sign in with your
-            enrolment number. Public information below is open to everyone.
+            <b>Sign in for your own record</b>
+            Speaking slots, adjudication feedback and participation records are available once you sign
+            in with your membership number. Public information below is open to everyone.
             <div style="margin-top:10px">
-              <a class="btn btn-gold btn-sm" routerLink="/login" [queryParams]="{ returnUrl: '/students' }">Student Login</a>
+              <a class="btn btn-gold btn-sm" routerLink="/login" [queryParams]="{ returnUrl: '/students' }">Member Login</a>
               <a class="btn btn-ghost btn-sm" routerLink="/register">New Registration</a>
             </div>
           </div>
@@ -40,9 +40,9 @@ interface CornerLink {
           <div class="side-note" style="margin-bottom:22px">
             <b>Welcome, {{ auth.displayName() }}</b>
             @if (auth.user()?.enrolmentNo) {
-              Enrolment number {{ auth.user()?.enrolmentNo }}.
+              Membership number {{ auth.user()?.enrolmentNo }}.
             }
-            Your records are available from the links below.
+            Your record and registrations are available from the links below.
             <div style="margin-top:10px">
               <a class="btn btn-gold btn-sm" routerLink="/profile">My Account</a>
             </div>
@@ -67,11 +67,11 @@ interface CornerLink {
 
     <section class="section alt">
       <div class="container">
-        <ts-section-title kicker="Notifications" heading="Notices for Students"
-          lede="Examination schedules, scholarship windows and circulars affecting enrolled learners." />
+        <ts-section-title kicker="Notifications" heading="Notices for Members"
+          lede="Motion calendars, registration windows and circulars affecting members of the Centre." />
 
         @if (!notices().length) {
-          <ts-empty-state heading="No current notices" body="Student notifications will appear here as they are issued." />
+          <ts-empty-state heading="No current notices" body="Notifications for members will appear here as they are issued." />
         } @else {
           <div class="panel">
             @for (notice of notices(); track notice.id) {
@@ -103,15 +103,15 @@ export class StudentsPage implements OnInit {
   readonly notices = signal<Notice[]>([]);
 
   readonly links: CornerLink[] = [
-    { label: 'Student Login',    link: '/login',    requiresAuth: false, note: 'Sign in with your enrolment number to reach personalised records.' },
-    { label: 'Results',          link: '/profile',  requiresAuth: true,  note: 'Semester results and consolidated mark statements.' },
-    { label: 'Examination',      link: '/notices',  requiresAuth: false, note: 'Examination schedule, hall tickets and revaluation forms.' },
-    { label: 'Assignments',      link: '/profile',  requiresAuth: true,  note: 'Submission windows, uploads and marked feedback.' },
-    { label: 'Study Materials',  link: '/library',  requiresAuth: false, note: 'Course-linked reading, memorial bank and the debate rulebook.' },
-    { label: 'Events',           link: '/events',   requiresAuth: false, note: 'Competitions, seminars and guest lectures open to students.' },
-    { label: 'Scholarships',     link: '/notices',  requiresAuth: false, note: 'Merit-cum-means awards and application windows.' },
-    { label: 'Certificates',     link: '/profile',  requiresAuth: true,  note: 'Course completion, participation and bonafide certificates.' },
-    { label: 'Downloads',        link: '/admissions', requiresAuth: false, note: 'Forms, the prospectus, fee structure and style guides.' }
+    { label: 'Member Login',       link: '/login',    requiresAuth: false, note: 'Sign in with your membership number to reach your own record.' },
+    { label: 'Join a Debate',      link: '/profile',  requiresAuth: true,  note: 'Put your name down for a side on any live motion.' },
+    { label: 'Event Registration', link: '/notices',  requiresAuth: false, note: 'Registration windows for competitions, lectures and conferences.' },
+    { label: 'Speaking Slots',     link: '/profile',  requiresAuth: true,  note: 'Confirmed rounds, running order and adjudication feedback.' },
+    { label: 'Briefing Material',  link: '/library',  requiresAuth: false, note: 'Motion packs, the memorial bank and the debate rulebook.' },
+    { label: 'Events',             link: '/events',   requiresAuth: false, note: 'Competitions, lectures and conferences open to members.' },
+    { label: 'Bursaries',          link: '/notices',  requiresAuth: false, note: 'Travel and entry support for competition teams.' },
+    { label: 'Participation Records', link: '/profile', requiresAuth: true, note: 'Motions argued, rounds adjudicated and letters of participation.' },
+    { label: 'Downloads',          link: '/admissions', requiresAuth: false, note: 'Membership forms, rulebooks, fee schedule and style guides.' }
   ];
 
   ngOnInit(): void {

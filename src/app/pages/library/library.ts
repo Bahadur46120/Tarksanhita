@@ -19,7 +19,7 @@ const TYPES: { value: string; label: string; icon: string; note: string }[] = [
   { value: 'CaseLaw',       label: 'Case Laws',        icon: 'gavel',    note: 'Reported judgments' },
   { value: 'Constitution',  label: 'Constitution',     icon: 'building', note: 'Annotated text' },
   { value: 'Database',      label: 'Legal Databases',  icon: 'globe',    note: 'Licensed access' },
-  { value: 'StudyMaterial', label: 'Study Materials',  icon: 'bulb',     note: 'Course-linked' }
+  { value: 'StudyMaterial', label: 'Briefing Material', icon: 'bulb',    note: 'Motion packs' }
 ];
 
 @Component({

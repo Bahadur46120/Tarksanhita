@@ -9,19 +9,19 @@
           <div class="panel-head"><h3>About Tarksanhita</h3></div>
           <div class="panel-body">
             <div class="about-thumb" style="height:132px;padding:0;overflow:hidden">
-              <ts-placeholder-art seed="about-tarksanhita" label="Tarksanhita academic block" />
+              <ts-placeholder-art seed="about-tarksanhita" label="Tarksanhita debating hall" />
             </div>
             <p>
-              Tarksanhita is an independent centre for legal education, structured debate and
-              applied reasoning, founded on the conviction that sound law rests on sound logic.
+              Tarksanhita is an independent centre for structured debate and applied legal
+              reasoning, founded on the conviction that sound law rests on sound logic.
             </p>
             <p>
-              The Centre brings together students, practitioners and scholars to examine legal
-              questions through disciplined argument, rigorous research and open academic exchange.
+              The Centre convenes members, practitioners and scholars to test legal questions
+              through disciplined argument, adjudicated debate and published research.
             </p>
 
             <div class="mini-head">Our Mission</div>
-            <p>To cultivate a generation of jurists who argue with evidence, reason with clarity and act with integrity.</p>
+            <p>To convene arguments that are made with evidence, answered with reason and decided with integrity.</p>
 
             <div class="mini-head">Our Vision</div>
             <p>To become India's foremost forum where law, logic and public reasoning meet.</p>
@@ -31,9 +31,9 @@
 
           @if (stats(); as s) {
             <div class="stat-row">
-              <div class="stat"><b>{{ s.learners | number }}</b><small>Learners</small></div>
-              <div class="stat"><b>{{ s.faculty }}</b><small>Faculty &amp; Fellows</small></div>
-              <div class="stat"><b>{{ s.programmes }}</b><small>Programmes</small></div>
+              <div class="stat"><b>{{ s.learners | number }}</b><small>Members</small></div>
+              <div class="stat"><b>{{ s.faculty }}</b><small>Adjudicators &amp; Fellows</small></div>
+              <div class="stat"><b>{{ s.programmes }}</b><small>Debate Formats</small></div>
               <div class="stat"><b>{{ s.publications }}</b><small>Publications</small></div>
             </div>
           }
@@ -51,9 +51,9 @@
         <section class="panel">
           <div class="panel-head"><h3>Downloads</h3><a class="more" routerLink="/students">All</a></div>
           <ul class="link-list panel-body" style="padding:6px 12px">
-            <li><a routerLink="/admissions">Prospectus 2026&ndash;27 <span class="badge badge-outline">PDF</span></a></li>
-            <li><a routerLink="/admissions">Admission Form</a></li>
-            <li><a routerLink="/admissions">Fee Structure</a></li>
+            <li><a routerLink="/admissions">Centre Handbook 2026&ndash;27 <span class="badge badge-outline">PDF</span></a></li>
+            <li><a routerLink="/admissions">Membership Form</a></li>
+            <li><a routerLink="/admissions">Membership Fees</a></li>
             <li><a routerLink="/debates">Debate Rulebook</a></li>
             <li><a routerLink="/library">Citation Style Guide</a></li>
           </ul>
@@ -86,20 +86,18 @@
                   <h4>About Tarksanhita</h4>
                   <p>
                     Tarksanhita &mdash; the <em>Compendium of Reasoning</em> &mdash; is a centre for law, logic,
-                    debate and knowledge. It was established to address a simple gap in legal training:
-                    students learn what the law says long before they learn how to argue about it well.
-                    The Centre exists to close that gap.
+                    debate and knowledge. The Centre convenes motions, hears the arguments made on
+                    them, and publishes the reasoning that follows.
                   </p>
                   <p>
-                    Teaching here is organised around the argument rather than the syllabus alone. Every
-                    course pairs doctrinal instruction with an adversarial exercise, every research fellow
-                    defends their thesis before a mixed panel, and every student passes through the moot
-                    court before they graduate.
+                    Everything here is organised around the argument. Motions are published in advance,
+                    debated under recorded rules, decided by adjudicators who must give written reasons,
+                    and archived with the papers and commentary they provoke.
                   </p>
                   <div class="pillars">
-                    <div class="pillar"><b>Doctrine</b><span>Statute, precedent and constitutional text read closely.</span></div>
+                    <div class="pillar"><b>Motions</b><span>Live legal and policy controversies, published in advance.</span></div>
                     <div class="pillar"><b>Method</b><span>Formal and informal logic applied to legal reasoning.</span></div>
-                    <div class="pillar"><b>Practice</b><span>Moot courts, clinics and legal-aid engagement.</span></div>
+                    <div class="pillar"><b>Forum</b><span>Moot courts, competitions, lectures and conferences.</span></div>
                   </div>
                 </div>
               }
@@ -107,18 +105,18 @@
                 <div class="tab-panel active">
                   <h4>Our Mission</h4>
                   <p>
-                    To cultivate jurists, scholars and citizens who reason from evidence, argue in good
+                    To convene jurists, scholars and citizens who reason from evidence, argue in good
                     faith and hold their own conclusions to the same scrutiny they apply to others'.
                   </p>
                   <p>
-                    The Centre pursues this through four commitments: accessible legal education without
-                    dilution of rigour; research that is published, cited and contestable; debate conducted
-                    under published rules and neutral adjudication; and a library open to every enrolled
-                    learner without gatekeeping.
+                    The Centre pursues this through four commitments: motions open to any member willing
+                    to prepare; research that is published, cited and contestable; debate conducted
+                    under published rules and neutral adjudication; and a reference library open to every
+                    member without gatekeeping.
                   </p>
                   <div class="pillars">
                     <div class="pillar"><b>Rigour</b><span>No claim without a source; no source without scrutiny.</span></div>
-                    <div class="pillar"><b>Access</b><span>Fee waivers and open digital resources.</span></div>
+                    <div class="pillar"><b>Access</b><span>Concessional membership and open digital resources.</span></div>
                     <div class="pillar"><b>Integrity</b><span>Published conflict-of-interest and ethics norms.</span></div>
                   </div>
                 </div>
@@ -128,7 +126,7 @@
                   <h4>Our Vision</h4>
                   <p>
                     To become the foremost Indian forum where law, logic and public reasoning meet &mdash; a
-                    place practitioners consult, scholars publish in, and students are formed by.
+                    place practitioners consult, scholars publish in, and arguments are settled on merit.
                   </p>
                   <p>
                     Over the coming decade the Centre intends to build a fully open case-law and bare-act
@@ -139,21 +137,21 @@
               }
               @case ('excellence') {
                 <div class="tab-panel active">
-                  <h4>Academic Excellence</h4>
+                  <h4>Standards of Debate</h4>
                   <p>
-                    Programmes span certificate, diploma, postgraduate and doctoral levels across nine
-                    subject clusters. Assessment is continuous: written submissions, oral defence, case
-                    commentary and a compulsory moot component.
+                    Motions are drawn from nine subject benches and argued in four settings: moot court,
+                    policy debate, public debate and the adjudicated competition round. Each has a
+                    published rulebook covering speaking times, burdens, evidence and points of order.
                   </p>
                   <p>
-                    Faculty are drawn from the academy, the bar and the bench, and every course is
-                    externally reviewed once every three years. Course outlines, reading lists and
-                    assessment rubrics are published before enrolment opens.
+                    Adjudicators are drawn from the bar, the bench and the Centre's fellows. Every panel
+                    publishes written reasons, every decision may be appealed to a review panel, and the
+                    adjudication criteria are published before a motion opens.
                   </p>
                   <div class="pillars">
-                    <div class="pillar"><b>{{ topics().length || 9 }} Clusters</b><span>Certificate to doctoral level.</span></div>
-                    <div class="pillar"><b>1:14 Ratio</b><span>Faculty to enrolled learner.</span></div>
-                    <div class="pillar"><b>External Review</b><span>Triennial audit of every course.</span></div>
+                    <div class="pillar"><b>{{ topics().length || 9 }} Benches</b><span>Subject benches motions are drawn from.</span></div>
+                    <div class="pillar"><b>4 Formats</b><span>Moot, policy, public and competition rounds.</span></div>
+                    <div class="pillar"><b>Written Reasons</b><span>Every decision reasoned and appealable.</span></div>
                   </div>
                 </div>
               }
@@ -163,7 +161,7 @@
                   <p>
                     Research is organised into standing centres for constitutional studies, criminal
                     justice, technology &amp; law, and human rights. Each runs a working-paper series, an
-                    annual call for papers and a public seminar programme.
+                    annual call for papers and a public lecture series.
                   </p>
                   <p>
                     The Centre operates a double-blind peer review process for its two flagship journals
@@ -176,9 +174,9 @@
                 <div class="tab-panel active">
                   <h4>Debate &amp; Logic</h4>
                   <p>
-                    The debating programme is not an extracurricular add-on &mdash; it is examined. Students
-                    are trained in argument construction, fallacy identification, burden allocation and
-                    rebuttal, then tested in adjudicated rounds against published criteria.
+                    Debate is not a sideline here &mdash; it is the whole of the work. Members prepare
+                    argument construction, fallacy identification, burden allocation and rebuttal, then
+                    take them into adjudicated rounds decided against published criteria.
                   </p>
                   <p>
                     Motions are drawn from live legal and policy controversies. Adjudicators publish
@@ -326,18 +324,18 @@
         </div>
 
         <div class="side-note">
-          <b>Admission Helpdesk</b>
-          Counselling for the 2026&ndash;27 session is available on working days, 10:00&ndash;17:00 IST.
+          <b>Membership Helpdesk</b>
+          Help with joining a motion or registering for an event is available on working days, 10:00&ndash;17:00 IST.
           <div style="margin-top:9px"><a class="btn btn-gold btn-sm" routerLink="/contact">Talk to Us</a></div>
         </div>
 
         <section class="panel">
           <div class="panel-head"><h3>Quick Access</h3></div>
           <ul class="link-list panel-body" style="padding:6px 12px">
-            <li><a routerLink="/login">Student Login</a></li>
-            <li><a routerLink="/login">Faculty Login</a></li>
-            <li><a routerLink="/students">Examination Portal</a></li>
-            <li><a routerLink="/students">Fee Payment</a></li>
+            <li><a routerLink="/login">Member Login</a></li>
+            <li><a routerLink="/login">Adjudicator Login</a></li>
+            <li><a routerLink="/students">Event Registration</a></li>
+            <li><a routerLink="/students">Membership Renewal</a></li>
             <li><a routerLink="/contact">Grievance Redressal</a></li>
             <li><a routerLink="/admin">Admin Panel</a></li>
           </ul>
@@ -365,10 +363,10 @@
 <section class="section alt" id="academics">
   <div class="container">
     <div class="sec-title">
-      <div class="kicker">Programmes &amp; Departments</div>
-      <h2>Academics</h2>
+      <div class="kicker">Subject Benches</div>
+      <h2>What the Centre Runs</h2>
       <div class="rule"></div>
-      <p>Subject clusters spanning certificate, diploma, postgraduate and doctoral study. Every cluster pairs doctrinal instruction with an examined argumentation component.</p>
+      <p>Nine subject benches from which motions are drawn. Each bench carries its own moot problems, competition rounds and lecture series, and each is convened by a standing panel of adjudicators.</p>
     </div>
 
     @if (topics().length) {
@@ -378,17 +376,17 @@
             <div class="ic"><svg><use [attr.href]="iconFor(topic.iconKey)" /></svg></div>
             <h4>{{ topic.title }}</h4>
             <p>{{ topic.summary }}</p>
-            <div class="meta"><span>{{ levelFor($index) }}</span><span>3&ndash;36 Months</span></div>
+            <div class="meta"><span>{{ levelFor($index) }}</span><span>Open to members</span></div>
           </a>
         }
       </div>
     } @else if (!loading()) {
-      <ts-empty-state heading="Programmes are being published" body="The academic catalogue will appear here shortly." />
+      <ts-empty-state heading="Subject benches are being published" body="The list of benches and their motions will appear here shortly." />
     }
 
     <div class="text-center" style="margin-top:26px">
-      <a class="btn btn-navy" routerLink="/academics">View All Programmes</a>
-      <a class="btn btn-gold" routerLink="/admissions">Apply for Admission</a>
+      <a class="btn btn-navy" routerLink="/academics">See What We Run</a>
+      <a class="btn btn-gold" routerLink="/admissions">Become a Member</a>
     </div>
   </div>
 </section>
@@ -451,7 +449,7 @@
       <div class="kicker">Scholarship</div>
       <h2>Research &amp; Publications</h2>
       <div class="rule"></div>
-      <p>Two peer-reviewed journals, a working-paper series and an open repository of case notes produced by faculty, fellows and students.</p>
+      <p>Two peer-reviewed journals, a working-paper series and an open repository of case notes produced by fellows, adjudicators and members of the Centre.</p>
     </div>
 
     <div class="res-grid">
@@ -460,8 +458,8 @@
       <div class="res-item"><div class="n">03</div><h4>Articles</h4><p>Shorter commentary on legislative developments and recent judgments.</p><a class="read-more" routerLink="/articles">Browse</a></div>
       <div class="res-item"><div class="n">04</div><h4>Case Studies</h4><p>Structured notes on landmark judgments with argument maps and dissent analysis.</p><a class="read-more" routerLink="/case-studies">Browse</a></div>
       <div class="res-item"><div class="n">05</div><h4>Legal Research</h4><p>Methodology guides, datasets and replication material for empirical legal work.</p><a class="read-more" routerLink="/research">Browse</a></div>
-      <div class="res-item"><div class="n">06</div><h4>Faculty Publications</h4><p>Books, monographs and externally published work by Centre faculty.</p><a class="read-more" routerLink="/publications">Browse</a></div>
-      <div class="res-item"><div class="n">07</div><h4>Student Research</h4><p>Dissertations, prize essays and student-led working papers.</p><a class="read-more" routerLink="/publications">Browse</a></div>
+      <div class="res-item"><div class="n">06</div><h4>Faculty Publications</h4><p>Books, monographs and externally published work by the Centre's fellows and adjudicators.</p><a class="read-more" routerLink="/publications">Browse</a></div>
+      <div class="res-item"><div class="n">07</div><h4>Member Research</h4><p>Prize essays, motion briefs and member-led working papers.</p><a class="read-more" routerLink="/publications">Browse</a></div>
       <div class="res-item"><div class="n">08</div><h4>Call for Papers</h4><p>Open calls, submission windows and editorial guidelines for forthcoming volumes.</p><a class="read-more" routerLink="/notices">Browse</a></div>
     </div>
   </div>
@@ -472,9 +470,9 @@
   <div class="container">
     <div class="sec-title">
       <div class="kicker">Knowledge Resources</div>
-      <h2>Digital Library</h2>
+      <h2>Reference Library</h2>
       <div class="rule"></div>
-      <p>Search the catalogue across books, journals, statutes, law reports and study material.</p>
+      <p>Search the catalogue across books, journals, statutes, law reports and briefing material prepared for motions.</p>
     </div>
 
     <div class="lib-grid">
@@ -485,7 +483,7 @@
       <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'CaseLaw' }"><div class="ic"><svg><use href="#i-gavel" /></svg></div><b>Case Laws</b><small>Reported judgments</small></a>
       <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'Constitution' }"><div class="ic"><svg><use href="#i-building" /></svg></div><b>Constitution</b><small>Annotated text</small></a>
       <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'Database' }"><div class="ic"><svg><use href="#i-globe" /></svg></div><b>Legal Databases</b><small>Licensed access</small></a>
-      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'StudyMaterial' }"><div class="ic"><svg><use href="#i-bulb" /></svg></div><b>Study Materials</b><small>Course-linked</small></a>
+      <a class="lib-tile" routerLink="/library" [queryParams]="{ type: 'StudyMaterial' }"><div class="ic"><svg><use href="#i-bulb" /></svg></div><b>Briefing Material</b><small>Motion packs</small></a>
     </div>
   </div>
 </section>
@@ -495,29 +493,29 @@
   <div class="container">
     <div class="student-wrap">
       <div>
-        <div class="kicker" style="font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-400);font-weight:700">For Enrolled Learners</div>
-        <h2 style="font-size:clamp(1.4rem,2.7vw,2.05rem);margin:8px 0 12px">Student Corner</h2>
+        <div class="kicker" style="font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-400);font-weight:700">For Members</div>
+        <h2 style="font-size:clamp(1.4rem,2.7vw,2.05rem);margin:8px 0 12px">Member Corner</h2>
         <div style="width:96px;height:3px;background:linear-gradient(90deg,var(--gold-600),var(--gold-300));margin-bottom:16px"></div>
         <p style="font-size:.92rem;color:#a9bcd4;max-width:520px">
-          Everything an enrolled student needs in one place &mdash; results, examination forms, assignment
-          submission, scholarships, certificates and downloads. Sign in with your enrolment number to
-          access personalised records.
+          Everything a member needs in one place &mdash; joining a live motion, registering for an event,
+          speaking slots, adjudication feedback, rulebooks and briefing downloads. Sign in with your
+          membership number to reach your own record.
         </p>
         <div style="margin-top:18px">
-          <a class="btn btn-gold" routerLink="/login">Student Login</a>
+          <a class="btn btn-gold" routerLink="/login">Member Login</a>
           <a class="btn btn-ghost-light" routerLink="/register">New Registration</a>
         </div>
       </div>
 
       <div class="student-links">
-        <a routerLink="/login"><span class="b">&rarr;</span> Student Login</a>
-        <a routerLink="/students"><span class="b">&rarr;</span> Results</a>
-        <a routerLink="/students"><span class="b">&rarr;</span> Examination</a>
-        <a routerLink="/students"><span class="b">&rarr;</span> Assignments</a>
-        <a routerLink="/library"><span class="b">&rarr;</span> Study Materials</a>
+        <a routerLink="/login"><span class="b">&rarr;</span> Member Login</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Join a Debate</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Event Registration</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Adjudication Feedback</a>
+        <a routerLink="/library"><span class="b">&rarr;</span> Briefing Material</a>
         <a routerLink="/events"><span class="b">&rarr;</span> Events</a>
-        <a routerLink="/notices"><span class="b">&rarr;</span> Scholarships</a>
-        <a routerLink="/students"><span class="b">&rarr;</span> Certificates</a>
+        <a routerLink="/notices"><span class="b">&rarr;</span> Competition Bursaries</a>
+        <a routerLink="/students"><span class="b">&rarr;</span> Participation Records</a>
         <a routerLink="/students"><span class="b">&rarr;</span> Downloads</a>
       </div>
     </div>
@@ -534,11 +532,11 @@
     </div>
 
     <div class="imp-strip">
-      <a routerLink="/admissions"><span class="ic"><svg><use href="#i-doc" /></svg></span>Admissions</a>
-      <a routerLink="/students"><span class="ic"><svg><use href="#i-cal" /></svg></span>Examination</a>
-      <a routerLink="/students"><span class="ic"><svg><use href="#i-award" /></svg></span>Results</a>
+      <a routerLink="/admissions"><span class="ic"><svg><use href="#i-doc" /></svg></span>Membership</a>
+      <a routerLink="/students"><span class="ic"><svg><use href="#i-cal" /></svg></span>Event Registration</a>
+      <a routerLink="/students"><span class="ic"><svg><use href="#i-award" /></svg></span>Member Corner</a>
       <a routerLink="/notices"><span class="ic"><svg><use href="#i-chat" /></svg></span>Notifications</a>
-      <a routerLink="/events"><span class="ic"><svg><use href="#i-cal" /></svg></span>Academic Calendar</a>
+      <a routerLink="/events"><span class="ic"><svg><use href="#i-cal" /></svg></span>Events Calendar</a>
       <a routerLink="/research"><span class="ic"><svg><use href="#i-flask" /></svg></span>Research</a>
       <a routerLink="/library"><span class="ic"><svg><use href="#i-book" /></svg></span>Library</a>
       <a routerLink="/students"><span class="ic"><svg><use href="#i-down" /></svg></span>Downloads</a>

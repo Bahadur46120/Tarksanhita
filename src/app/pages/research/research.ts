@@ -8,11 +8,11 @@ import { EmptyState, LoadingState, PageBanner, SectionTitle } from '../../shared
 const TYPE_LABELS: Record<string, string> = {
   Journal: 'Journal Articles',
   WorkingPaper: 'Working Papers',
-  Dissertation: 'Dissertations',
+  Dissertation: 'Long-Form Studies',
   CaseStudy: 'Case Studies',
   Monograph: 'Monographs',
   FacultyPublication: 'Faculty Publications',
-  StudentResearch: 'Student Research'
+  StudentResearch: 'Member Research'
 };
 
 @Component({
@@ -23,7 +23,7 @@ const TYPE_LABELS: Record<string, string> = {
   template: `
     <ts-page-banner
       heading="Research &amp; Publications"
-      lede="Four standing research centres, two peer-reviewed journals and an open working-paper series." />
+      lede="Four standing research centres, two peer-reviewed journals, an open working-paper series and commentary written by the Centre's fellows and members." />
 
     <main class="section">
       <div class="container">
@@ -41,7 +41,7 @@ const TYPE_LABELS: Record<string, string> = {
         </div>
 
         <ts-section-title kicker="Standing Centres" heading="Research Centres"
-          lede="Each centre runs a working-paper series, an annual call for papers and a public seminar programme." />
+          lede="Each centre runs a working-paper series, an annual call for papers and a public lecture series." />
 
         <div class="acad-grid">
           <div class="acad-card">

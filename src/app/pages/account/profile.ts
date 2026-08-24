@@ -4,7 +4,17 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../core/services/auth.service';
+import { Role } from '../../core/models/models';
 import { PageBanner } from '../../shared/components/ui';
+
+/** Display names for the stored role values, which are an API contract. */
+const ROLE_LABELS: Record<Role, string> = {
+  Admin: 'Administrator',
+  Editor: 'Editor',
+  Faculty: 'Fellow',
+  Student: 'Member',
+  User: 'Registered User'
+};
 
 @Component({
   selector: 'ts-profile',
@@ -27,12 +37,12 @@ import { PageBanner } from '../../shared/components/ui';
                     <tr><th style="width:190px">Full name</th><td>{{ user.fullName }}</td></tr>
                     <tr><th>Email address</th><td>{{ user.email }}</td></tr>
                     <tr><th>Telephone</th><td>{{ user.phone || '—' }}</td></tr>
-                    <tr><th>Enrolment number</th><td>{{ user.enrolmentNo || '—' }}</td></tr>
+                    <tr><th>Membership ID</th><td>{{ user.enrolmentNo || '—' }}</td></tr>
                     <tr>
                       <th>Roles</th>
                       <td>
                         @for (role of user.roles; track role) {
-                          <span class="badge badge-gold" style="margin-right:5px">{{ role }}</span>
+                          <span class="badge badge-gold" style="margin-right:5px">{{ label(role) }}</span>
                         }
                       </td>
                     </tr>
@@ -46,7 +56,7 @@ import { PageBanner } from '../../shared/components/ui';
                 @if (auth.isContentManager()) {
                   <a class="btn btn-gold" routerLink="/admin">Open Admin Panel</a>
                 }
-                <a class="btn btn-ghost" routerLink="/students">Student Corner</a>
+                <a class="btn btn-ghost" routerLink="/students">Member Corner</a>
                 <button type="button" class="btn btn-navy" (click)="auth.logout('/')">Sign Out</button>
               </div>
             </div>
@@ -96,6 +106,11 @@ export class ProfilePage {
     currentPassword: ['', Validators.required],
     newPassword: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]]
   });
+
+  /** Display name for a role; the stored value is unchanged. */
+  label(role: Role): string {
+    return ROLE_LABELS[role] ?? role;
+  }
 
   submit(): void {
     if (this.form.invalid) {

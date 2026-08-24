@@ -25,22 +25,20 @@ import { AvatarArt, PageBanner, SectionTitle } from '../../shared/components/ui'
               <div class="panel-body prose">
                 <p>
                   Tarksanhita &mdash; literally, a <em>compendium of reasoning</em> &mdash; was founded on a
-                  practical observation. Legal education in India teaches the content of the law
-                  thoroughly and the craft of arguing about it almost by accident. Students absorb
-                  doctrine, then learn advocacy by watching, imitating and hoping.
+                  practical observation. There is no shortage of places in India to be told what the
+                  law is, and very few where a legal proposition can be put, opposed and decided in
+                  public on the strength of the argument alone.
                 </p>
                 <p>
-                  The Centre was established to make that second half explicit. Argument construction,
-                  burden allocation, fallacy identification and rebuttal are taught here as a
-                  discipline, examined like any other subject, and applied to live legal controversy
-                  rather than to abstract puzzles.
+                  The Centre is that second kind of place. It is not a teaching institution: it holds
+                  no classes and awards no qualifications. It convenes motions, runs moot courts and
+                  competitions, hosts lectures and conferences, and publishes what comes out of them.
                 </p>
                 <p>
-                  Everything else follows from that commitment: a curriculum that pairs every
-                  doctrinal course with an adversarial exercise, a research programme that publishes
-                  its methods alongside its conclusions, a debating format with written adjudication
-                  and a right of appeal, and a library open to every enrolled learner without
-                  gatekeeping.
+                  Everything else follows from that commitment: motions published in advance with a
+                  briefing pack, written adjudication with a right of appeal, research that publishes
+                  its methods alongside its conclusions, and a reference library open to every member
+                  without gatekeeping.
                 </p>
               </div>
             </section>
@@ -51,16 +49,16 @@ import { AvatarArt, PageBanner, SectionTitle } from '../../shared/components/ui'
                 <h3>Our Vision</h3>
                 <p>
                   To become the foremost Indian forum where law, logic and public reasoning meet &mdash;
-                  a place practitioners consult, scholars publish in, and students are formed by.
+                  a place practitioners consult, scholars publish in, and arguments are settled on merit.
                 </p>
                 <h3>Our Mission</h3>
                 <p>
-                  To cultivate jurists, scholars and citizens who reason from evidence, argue in good
+                  To convene jurists, scholars and citizens who reason from evidence, argue in good
                   faith and hold their own conclusions to the same scrutiny they apply to others'.
                 </p>
                 <div class="pillars">
                   <div class="pillar"><b>Rigour</b><span>No claim without a source; no source without scrutiny.</span></div>
-                  <div class="pillar"><b>Access</b><span>Fee waivers, open digital resources, no gatekeeping.</span></div>
+                  <div class="pillar"><b>Access</b><span>Concessional membership, open digital resources, no gatekeeping.</span></div>
                   <div class="pillar"><b>Integrity</b><span>Published ethics and conflict-of-interest norms.</span></div>
                   <div class="pillar"><b>Openness</b><span>Reasons published; decisions appealable.</span></div>
                 </div>
@@ -105,17 +103,17 @@ import { AvatarArt, PageBanner, SectionTitle } from '../../shared/components/ui'
               <div class="panel-head"><h3>At a Glance</h3></div>
               <div class="panel-body">
                 <ul class="link-list">
-                  <li><a routerLink="/academics">Programmes &amp; departments</a></li>
+                  <li><a routerLink="/academics">Debate formats &amp; subject benches</a></li>
                   <li><a routerLink="/research">Four standing research centres</a></li>
-                  <li><a routerLink="/debates">Adjudicated debate programme</a></li>
-                  <li><a routerLink="/library">Open digital library</a></li>
+                  <li><a routerLink="/debates">Live and archived motions</a></li>
+                  <li><a routerLink="/library">Open reference library</a></li>
                   <li><a routerLink="/faculty">Faculty directory</a></li>
                   <li><a routerLink="/contact">Contact the Centre</a></li>
                 </ul>
               </div>
               <div class="stat-row">
                 <div class="stat"><b>2016</b><small>Established</small></div>
-                <div class="stat"><b>9</b><small>Subject Clusters</small></div>
+                <div class="stat"><b>9</b><small>Subject Benches</small></div>
                 <div class="stat"><b>4</b><small>Research Centres</small></div>
                 <div class="stat"><b>2</b><small>Peer-Reviewed Journals</small></div>
               </div>
@@ -137,7 +135,7 @@ import { AvatarArt, PageBanner, SectionTitle } from '../../shared/components/ui'
         <ts-section-title
           kicker="Leadership"
           heading="Governing Council"
-          lede="The Council sets academic policy, approves the annual budget and appoints external reviewers." />
+          lede="The Council settles the rules of debate, approves the annual budget and appoints the Centre's adjudication panels." />
 
         <div class="acad-grid">
           @for (person of people(); track person.id) {

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { adminGuard, authGuard, guestGuard } from './core/guards/guards';
+import { adminGuard, authGuard, guestGuard, roleGuard } from './core/guards/guards';
 
 /**
  * Public pages are rendered inside the institutional shell (utility bar, masthead,
@@ -38,7 +38,7 @@ export const routes: Routes = [
       {
         path: 'academics',
         loadComponent: () => import('./pages/academics/academics').then(m => m.AcademicsPage),
-        title: 'Academics — Tarksanhita'
+        title: 'What the Centre Runs — Tarksanhita'
       },
       {
         path: 'academics/:slug',
@@ -209,7 +209,7 @@ export const routes: Routes = [
         path: 'faculty',
         loadComponent: () => import('./pages/shared-pages/content-list').then(m => m.ContentListPage),
         data: { resource: 'profiles', kind: 'profile', title: 'Faculty Directory', lede: 'Academic staff, fellows and members of the governing council.' },
-        title: 'Faculty — Tarksanhita'
+        title: 'Fellows — Tarksanhita'
       },
       {
         path: 'faculty/:slug',
@@ -221,7 +221,7 @@ export const routes: Routes = [
       {
         path: 'students',
         loadComponent: () => import('./pages/students/students').then(m => m.StudentsPage),
-        title: 'Student Corner — Tarksanhita'
+        title: 'Member Corner — Tarksanhita'
       },
       {
         path: 'alumni',
@@ -239,7 +239,7 @@ export const routes: Routes = [
         path: 'admissions',
         loadComponent: () => import('./pages/shared-pages/static-page').then(m => m.StaticPage),
         data: { pageKey: 'admissions' },
-        title: 'Admissions — Tarksanhita'
+        title: 'Membership — Tarksanhita'
       },
 
       // ---------------------------------------------------------- Contact & account
@@ -301,6 +301,15 @@ export const routes: Routes = [
         path: 'contacts',
         loadComponent: () => import('./pages/admin/contacts').then(m => m.AdminContacts),
         title: 'Enquiries — Tarksanhita Admin'
+      },
+      {
+        // Administrators only — editors manage content, not member records.
+        path: 'reports/participation',
+        loadComponent: () =>
+          import('./pages/admin/participation-report').then(m => m.AdminParticipationReport),
+        canActivate: [roleGuard],
+        data: { roles: ['Admin'] },
+        title: 'Member Participation — Tarksanhita Admin'
       },
       {
         path: ':resource/new',

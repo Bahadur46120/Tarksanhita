@@ -9,6 +9,19 @@ import { EmptyState, LoadingState, Pager } from '../../shared/components/ui';
 
 const ALL_ROLES: Role[] = ['Admin', 'Editor', 'Faculty', 'Student', 'User'];
 
+/**
+ * How each role reads in the interface. The stored values are the API contract and
+ * never change; only these labels do — the Centre has members and fellows, not
+ * students and teachers.
+ */
+const ROLE_LABELS: Record<Role, string> = {
+  Admin: 'Admin',
+  Editor: 'Editor',
+  Faculty: 'Fellow',
+  Student: 'Member',
+  User: 'User'
+};
+
 @Component({
   selector: 'ts-admin-users',
   standalone: true,
@@ -23,14 +36,14 @@ const ALL_ROLES: Role[] = ['Admin', 'Editor', 'Faculty', 'Student', 'User'];
     <div class="list-toolbar">
       <div class="field grow">
         <label for="u-search">Search</label>
-        <input id="u-search" type="search" placeholder="Name, email or enrolment number…"
+        <input id="u-search" type="search" placeholder="Name, email or membership ID…"
                [(ngModel)]="search" (keyup.enter)="onSearch()" />
       </div>
       <div class="field">
         <label for="u-role">Role</label>
         <select id="u-role" [(ngModel)]="role" (change)="onSearch()">
           <option value="">All roles</option>
-          @for (r of allRoles; track r) { <option [value]="r">{{ r }}</option> }
+          @for (r of allRoles; track r) { <option [value]="r">{{ roleLabel(r) }}</option> }
         </select>
       </div>
       <button type="button" class="btn btn-navy" (click)="onSearch()" style="align-self:flex-end">Search</button>
@@ -47,7 +60,7 @@ const ALL_ROLES: Role[] = ['Admin', 'Editor', 'Faculty', 'Student', 'User'];
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th style="width:130px">Enrolment</th>
+              <th style="width:130px">Membership ID</th>
               <th style="width:250px">Roles</th>
               <th style="width:110px">Status</th>
               <th style="width:130px">Last sign-in</th>
@@ -68,13 +81,13 @@ const ALL_ROLES: Role[] = ['Admin', 'Editor', 'Faculty', 'Student', 'User'];
                           <input type="checkbox"
                                  [checked]="draftRoles().includes(r)"
                                  (change)="toggleRole(r)" />
-                          {{ r }}
+                          {{ roleLabel(r) }}
                         </label>
                       }
                     </div>
                   } @else {
                     @for (r of user.roles; track r) {
-                      <span class="badge badge-gold" style="margin-right:4px">{{ r }}</span>
+                      <span class="badge badge-gold" style="margin-right:4px">{{ roleLabel(r) }}</span>
                     }
                   }
                 </td>
@@ -150,6 +163,11 @@ export class AdminUsers implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  /** Display name for a role; the stored value is unchanged. */
+  roleLabel(role: Role): string {
+    return ROLE_LABELS[role] ?? role;
   }
 
   onSearch(): void {

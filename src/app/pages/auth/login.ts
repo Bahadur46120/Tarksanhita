@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../core/services/auth.service';
+import { DEMO_ACCOUNTS, DemoAccount } from '../../core/demo-accounts';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -46,7 +47,7 @@ import { environment } from '../../../environments/environment';
             @if (returnUrl()) {
               Sign in to continue to the page you requested.
             } @else {
-              Access your member, faculty or administrative account.
+              Access your member, fellow or administrative account.
             }
           </p>
 
@@ -92,12 +93,19 @@ import { environment } from '../../../environments/environment';
           </form>
 
           @if (showDemoAccounts) {
-            <div class="hint-box">
-              <b>Development accounts</b>
-              <code>admin&#64;tarksanhita.in / 1111</code> — administration<br />
-              <code>editor&#64;tarksanhita.in / 2222</code> — content management<br />
-              <code>student&#64;tarksanhita.in / 4444</code> — member view<br />
-              Seeded by the API on first run. This panel is hidden in production builds.
+            <div class="hint-box demo-box">
+              <b>Demonstration accounts</b>
+              <ul class="demo-list">
+                @for (account of demoAccounts; track account.email) {
+                  <li>
+                    <button type="button" class="demo-fill" [disabled]="busy()" (click)="useDemo(account)">
+                      <code>{{ account.email }} / {{ account.password }}</code>
+                      <span>{{ account.label }}</span>
+                    </button>
+                  </li>
+                }
+              </ul>
+              These sign in without the API — pick one to fill the form, then Sign In.
             </div>
           }
 
@@ -126,8 +134,9 @@ export class LoginPage {
 
   readonly returnUrl = signal(this.route.snapshot.queryParamMap.get('returnUrl'));
 
-  /** Seeded credentials are a development convenience and never ship. */
-  readonly showDemoAccounts = !environment.production;
+  /** The panel only makes sense while the built-in accounts are switched on. */
+  readonly showDemoAccounts = environment.demoLogin;
+  readonly demoAccounts = DEMO_ACCOUNTS;
 
   readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -137,6 +146,13 @@ export class LoginPage {
   invalid(control: string): boolean {
     const c = this.form.get(control);
     return !!c && c.invalid && (c.dirty || c.touched);
+  }
+
+  /** Fills the form from the demo panel; the user still presses Sign In. */
+  useDemo(account: DemoAccount): void {
+    this.error.set(null);
+    this.form.setValue({ email: account.email, password: account.password });
+    this.form.markAsPristine();
   }
 
   submit(): void {
