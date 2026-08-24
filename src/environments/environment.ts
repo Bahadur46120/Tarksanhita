@@ -1,9 +1,8 @@
 export const environment = {
   production: false,
   apiUrl: 'https://johnkumar-001-site1.etempurl.com/api',
-  /** Built-in accounts (see core/demo-accounts.ts) sign in without the API. */
-  demoLogin: true,
+  demoLogin: false,
   siteName: 'Tarksanhita',
-  tagline: 'The Debate on1 Logic',
+  tagline: 'The Debate on Logic',
   subtitle: 'Centre for Law, Logic, Debate & Knowledge'
 };
