@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import {
   Student,
   Debate,
@@ -28,7 +29,7 @@ import {
 })
 export class DebateAdminService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = '/api/admin/debates';
+  private readonly apiUrl = `${environment.apiUrl}/admin/debates`;
 
   // ==================== Dashboard & Analytics ====================
 
