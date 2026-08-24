@@ -9,6 +9,6 @@ export const environment = {
   apiUrl: '/api',
   demoLogin: false,
   siteName: 'Tarksanhita',
-  tagline: 'The Debate on Logic',
+  tagline: 'The Debate on1 Logic',
   subtitle: 'Centre for Law, Logic, Debate & Knowledge'
 };
