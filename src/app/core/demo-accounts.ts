@@ -17,27 +17,27 @@ export interface DemoAccount {
 }
 
 export const DEMO_ACCOUNTS: readonly DemoAccount[] = [
-  {
-    email: 'admin@tarksanhita.in',
-    password: '1111',
-    label: 'Administration',
-    fullName: 'Centre Administrator',
-    roles: ['Admin']
-  },
-  {
-    email: 'editor@tarksanhita.in',
-    password: '2222',
-    label: 'Content management',
-    fullName: 'Content Editor',
-    roles: ['Editor']
-  },
-  {
-    email: 'student@tarksanhita.in',
-    password: '4444',
-    label: 'Member view',
-    fullName: 'Student Member',
-    roles: ['Student', 'User']
-  }
+  // {
+  //   email: 'admin@tarksanhita.in',
+  //   password: '1111',
+  //   label: 'Administration',
+  //   fullName: 'Centre Administrator',
+  //   roles: ['Admin']
+  // },
+  // {
+  //   email: 'editor@tarksanhita.in',
+  //   password: '2222',
+  //   label: 'Content management',
+  //   fullName: 'Content Editor',
+  //   roles: ['Editor']
+  // },
+  // {
+  //   email: 'student@tarksanhita.in',
+  //   password: '4444',
+  //   label: 'Member view',
+  //   fullName: 'Student Member',
+  //   roles: ['Student', 'User']
+  // }
 ];
 
 /** True when the email belongs to a demo account, whatever the password. */
