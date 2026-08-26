@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ContentService } from '../../core/services/api.service';
-import { ContentEntity } from '../../core/models/models';
+import { ContentEntity, EventMedia } from '../../core/models/models';
 import { EmptyState, LoadingState, PageBanner } from '../../shared/components/ui';
+import { MediaGallery } from '../../shared/components/media-gallery';
 
 /**
  * Generic detail view. Records differ in which fields they carry, so the template
@@ -12,7 +13,7 @@ import { EmptyState, LoadingState, PageBanner } from '../../shared/components/ui
 @Component({
   selector: 'ts-content-detail',
   standalone: true,
-  imports: [RouterLink, DatePipe, PageBanner, LoadingState, EmptyState],
+  imports: [RouterLink, DatePipe, PageBanner, LoadingState, EmptyState, MediaGallery],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (item(); as record) {
@@ -73,6 +74,10 @@ import { EmptyState, LoadingState, PageBanner } from '../../shared/components/ui
                     <li><span style="padding:6px 0;display:block">{{ judgment }}</span></li>
                   }
                 </ul>
+              }
+
+              @if (gallery().length) {
+                <ts-media-gallery [media]="gallery()" [heading]="galleryHeading()" />
               }
 
               @if (record.tags.length) {
@@ -146,6 +151,22 @@ export class ContentDetailPage implements OnInit {
   field(record: ContentEntity, key: string): string {
     const value = this.raw(record)[key];
     return typeof value === 'string' ? value : '';
+  }
+
+  /**
+   * Gallery attachments, for the record types that carry them. Held as a computed
+   * so the template binding keeps the same array between change-detection runs.
+   */
+  readonly gallery = computed<EventMedia[]>(() => {
+    const record = this.item();
+    if (!record) return [];
+
+    const value = this.raw(record)['mediaItems'];
+    return Array.isArray(value) ? (value as EventMedia[]).filter(item => !!item?.url) : [];
+  });
+
+  galleryHeading(): string {
+    return this.section() === 'Events' ? 'Event Gallery' : 'Photographs & Video';
   }
 
   list(record: ContentEntity, key: string): string[] {

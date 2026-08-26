@@ -6,7 +6,9 @@
 
 export type FieldType =
   | 'text' | 'textarea' | 'richtext' | 'number' | 'date' | 'datetime'
-  | 'select' | 'checkbox' | 'tags' | 'url';
+  | 'select' | 'checkbox' | 'tags' | 'url'
+  /** Gallery editor: uploads files to their host and keeps the list of records. */
+  | 'media';
 
 export interface FieldDef {
   name: string;
@@ -148,6 +150,8 @@ export const RESOURCES: ResourceDef[] = [
       { name: 'capacity', label: 'Capacity', type: 'number', hint: 'Leave blank or zero for unlimited.' },
       { name: 'registrationUrl', label: 'External registration URL', type: 'url' },
       { name: 'registrationOpen', label: 'Registration open', type: 'checkbox', default: true },
+      { name: 'mediaItems', label: 'Photographs & video', type: 'media', wide: true,
+        hint: 'Images are hosted on ImgBB, video on Cloudinary. The item marked Cover is the picture listing cards use.' },
       ...PUBLISH_FIELDS
     ]
   },

@@ -16,7 +16,14 @@
         <div class="form-grid">
           @for (field of def.fields; track field.name) {
 
-            @if (field.type === 'checkbox') {
+            @if (field.type === 'media') {
+              <div class="field full">
+                <label>{{ field.label }}</label>
+                <ts-media-manager [formControlName]="field.name" [eventId]="editingId()" />
+                @if (field.hint) { <span class="muted" style="font-size:.72rem">{{ field.hint }}</span> }
+              </div>
+
+            } @else if (field.type === 'checkbox') {
               <div class="field" [class.full]="field.wide">
                 <label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:normal;font-size:.86rem;font-weight:500;cursor:pointer">
                   <input type="checkbox" [formControlName]="field.name" style="width:auto" />

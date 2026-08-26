@@ -64,6 +64,38 @@ export interface NewsItem extends ContentEntity {
   viewCount: number;
 }
 
+export type MediaKind = 'Image' | 'Video';
+
+/** Where the file is hosted. Uploads go straight from the browser to the host. */
+export type MediaProvider = 'imgbb' | 'cloudinary' | 'youtube' | 'vimeo' | 'external';
+
+/**
+ * One photograph or video in an event gallery. The file itself lives with its
+ * host; this record only says where it is and how it should be shown.
+ */
+export interface EventMedia {
+  id: string;
+  kind: MediaKind;
+  /** Direct file URL, or the watch URL for an embedded video. */
+  url: string;
+  /** Small still for grids. Falls back to `url` for images. */
+  thumbUrl?: string;
+  provider: MediaProvider;
+  providerId?: string;
+  /** One-shot removal link, where the host issues one. */
+  deleteUrl?: string;
+  caption?: string;
+  fileName?: string;
+  width?: number;
+  height?: number;
+  sizeBytes?: number;
+  sortOrder: number;
+  /** The still used on listing cards. At most one per event. */
+  isCover?: boolean;
+  uploadedAt?: string;
+  uploadedBy?: string;
+}
+
 export interface EventItem extends ContentEntity {
   summary: string;
   body: string;
@@ -77,6 +109,8 @@ export interface EventItem extends ContentEntity {
   registeredCount: number;
   imageUrl?: string;
   organiser?: string;
+  /** Gallery attachments, lowest sortOrder first. */
+  mediaItems?: EventMedia[];
 }
 
 export interface DebateArgument {

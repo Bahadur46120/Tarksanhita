@@ -3,7 +3,8 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ContentService } from '../../core/services/api.service';
-import { ContentEntity, PagedResult, QueryParams } from '../../core/models/models';
+import { ContentEntity, EventMedia, PagedResult, QueryParams } from '../../core/models/models';
+import { coverImage } from '../../core/services/event-media.service';
 import { EmptyState, PageBanner, Pager, PlaceholderArt } from '../../shared/components/ui';
 
 interface FilterOption {
@@ -131,6 +132,25 @@ export class ContentListPage implements OnInit {
   summaryOf(item: ContentEntity): string {
     const record = item as unknown as Record<string, string | undefined>;
     return record['summary'] ?? record['abstract'] ?? record['description'] ?? record['shortBio'] ?? '';
+  }
+
+  /** The picture a card should show: the record's own image, or its cover shot. */
+  imageOf(item: ContentEntity): string | null {
+    const record = item as unknown as Record<string, unknown>;
+
+    const direct = record['imageUrl'] ?? record['photoUrl'];
+    if (typeof direct === 'string' && direct.trim()) return direct;
+
+    const gallery = record['mediaItems'];
+    return Array.isArray(gallery) ? coverImage(gallery as EventMedia[])?.url ?? null : null;
+  }
+
+  /** Number of videos attached, so a card can say the gallery holds some. */
+  videoCount(item: ContentEntity): number {
+    const gallery = (item as unknown as Record<string, unknown>)['mediaItems'];
+    return Array.isArray(gallery)
+      ? (gallery as EventMedia[]).filter(m => m?.kind === 'Video').length
+      : 0;
   }
 
   metaOf(item: ContentEntity): string {

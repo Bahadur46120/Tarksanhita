@@ -4,7 +4,9 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { ContentService } from '../../core/services/api.service';
-import { ContentEntity } from '../../core/models/models';
+import { ContentEntity, EventMedia } from '../../core/models/models';
+import { coverImage, normalise } from '../../core/services/event-media.service';
+import { MediaManager } from '../../shared/components/media-manager';
 import { LoadingState } from '../../shared/components/ui';
 import { FieldDef, ResourceDef, findResource } from './resources';
 
@@ -15,7 +17,7 @@ import { FieldDef, ResourceDef, findResource } from './resources';
 @Component({
   selector: 'ts-admin-content-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LoadingState],
+  imports: [ReactiveFormsModule, RouterLink, LoadingState, MediaManager],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './content-form.html'
 })
@@ -82,6 +84,7 @@ export class AdminContentForm implements OnInit {
     switch (field.type) {
       case 'checkbox': return false;
       case 'number': return null;
+      case 'media': return [];
       case 'tags': return '';
       case 'date':
       case 'datetime': return this.toInputDate(new Date().toISOString(), field.type);
@@ -100,6 +103,8 @@ export class AdminContentForm implements OnInit {
 
       if (field.type === 'tags') {
         patch[field.name] = Array.isArray(value) ? (value as string[]).join(', ') : String(value);
+      } else if (field.type === 'media') {
+        patch[field.name] = normalise(Array.isArray(value) ? (value as EventMedia[]) : []);
       } else if (field.type === 'date' || field.type === 'datetime') {
         patch[field.name] = this.toInputDate(String(value), field.type);
       } else {
@@ -163,6 +168,8 @@ export class AdminContentForm implements OnInit {
           .split(',')
           .map(part => part.trim())
           .filter(Boolean);
+      } else if (field.type === 'media') {
+        payload[field.name] = normalise(Array.isArray(v) ? (v as EventMedia[]) : []);
       } else if (field.type === 'number') {
         payload[field.name] = v === '' || v === null ? null : Number(v);
       } else if ((field.type === 'date' || field.type === 'datetime') && v) {
@@ -178,6 +185,13 @@ export class AdminContentForm implements OnInit {
     // Profiles display the person's name; keep title in step so listings read well.
     if (def.key === 'profiles' && !payload['title']) {
       payload['title'] = payload['fullName'];
+    }
+
+    // Listing cards and the homepage read imageUrl, so the chosen cover fills it.
+    const gallery = payload['mediaItems'] as EventMedia[] | undefined;
+    if (gallery) {
+      const cover = coverImage(gallery);
+      if (cover) payload['imageUrl'] = cover.url;
     }
 
     return payload as Partial<ContentEntity>;

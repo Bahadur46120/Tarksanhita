@@ -2,18 +2,21 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
+import { SILENT_ERRORS } from './http-context';
 
 /**
  * Surfaces API failures so no request fails silently: a snackbar for most errors,
  * a blocking browser alert for a duplicate sign-up email. 401s are left alone —
- * the auth interceptor owns that path and handles the redirect itself.
+ * the auth interceptor owns that path and handles the redirect itself, as are
+ * requests marked with SILENT_ERRORS.
  */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const snack = inject(MatSnackBar);
 
   return next(req).pipe(
     catchError((err: unknown) => {
-      if (err instanceof HttpErrorResponse && err.status !== 401) {
+      // Callers that mark a request silent report the failure themselves.
+      if (err instanceof HttpErrorResponse && err.status !== 401 && !req.context.get(SILENT_ERRORS)) {
         const message = describe(err);
 
         if (message === DUPLICATE_EMAIL && typeof window !== 'undefined') {

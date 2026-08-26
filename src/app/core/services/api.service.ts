@@ -10,7 +10,8 @@ import { ApiMessage, ContentEntity, PagedResult, QueryParams } from '../models/m
  */
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private readonly http = inject(HttpClient);
+  /** Public so callers needing HttpContext or progress can reach it directly. */
+  readonly http = inject(HttpClient);
   readonly base = environment.apiUrl;
 
   private toParams(q?: QueryParams | Record<string, unknown>): HttpParams {
