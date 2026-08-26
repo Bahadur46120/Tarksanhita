@@ -288,6 +288,43 @@ export const RESOURCES: ResourceDef[] = [
   },
 
   {
+    key: 'gallery',
+    label: 'Gallery',
+    singular: 'Album',
+    description: 'Photograph and video albums shown on the public Gallery page.',
+    icon: 'doc',
+    filters: [
+      { label: 'All types', value: '' },
+      { label: 'Event', value: 'Event' },
+      { label: 'Campus', value: 'Campus' },
+      { label: 'Competition', value: 'Competition' },
+      { label: 'Conference', value: 'Conference' },
+      { label: 'People', value: 'People' },
+      { label: 'Press', value: 'Press' },
+      { label: 'Other', value: 'Other' }
+    ],
+    columns: [
+      { name: 'title', label: 'Album' },
+      { name: 'albumType', label: 'Type', type: 'badge', width: '130px' },
+      { name: 'venue', label: 'Venue', width: '190px' },
+      { name: 'albumDate', label: 'Date', type: 'date', width: '110px' }
+    ],
+    fields: [
+      { name: 'title', label: 'Album title', type: 'text', required: true, wide: true },
+      { name: 'summary', label: 'Summary', type: 'textarea', wide: true, hint: 'Shown under the album title on the Gallery page.' },
+      { name: 'body', label: 'Description', type: 'richtext', wide: true },
+      { name: 'albumType', label: 'Type', type: 'select', default: 'Event',
+        options: ['Event', 'Campus', 'Competition', 'Conference', 'People', 'Press', 'Other'] },
+      { name: 'albumDate', label: 'Date', type: 'date', required: true },
+      { name: 'venue', label: 'Venue', type: 'text' },
+      { name: 'photographer', label: 'Photograph credit', type: 'text' },
+      { name: 'mediaItems', label: 'Photographs & video', type: 'media', wide: true,
+        hint: 'Images are hosted on ImgBB, video on Cloudinary. The item marked Cover is the picture the Gallery page uses.' },
+      ...PUBLISH_FIELDS
+    ]
+  },
+
+  {
     key: 'library',
     label: 'Library',
     singular: 'Library resource',

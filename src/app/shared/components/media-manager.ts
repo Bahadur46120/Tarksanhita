@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, forwardRef, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EventMedia } from '../../core/models/models';
+import { AuthService } from '../../core/services/auth.service';
 import { EventMediaService, normalise } from '../../core/services/event-media.service';
 import { MediaUploadService } from '../../core/services/media-upload.service';
 
@@ -21,6 +22,9 @@ interface PendingUpload {
  * cover, reorder, remove. Files go straight to their host; the list this
  * component holds is a form value, so it is saved with the record as well as
  * pushed to the media endpoint as each change is made.
+ *
+ * Uploading is an Admin-only job — the API refuses anyone else — so an Editor
+ * sees the gallery read-only rather than a set of controls that would fail.
  */
 @Component({
   selector: 'ts-media-manager',
@@ -32,6 +36,9 @@ interface PendingUpload {
   ],
   template: `
     <div class="mm">
+      @if (!canEdit()) {
+        <p class="mm-note">Only an administrator can add or remove photographs and video.</p>
+      } @else {
       <div class="mm-drop"
            [class.over]="dragging()"
            (dragover)="onDragOver($event)"
@@ -65,8 +72,10 @@ interface PendingUpload {
         }
       </div>
 
-      @if (!eventId()) {
+      @if (canEdit() && !recordId()) {
         <p class="mm-note">Save the record once and the gallery will be attached to it. Items added now are kept with your first save.</p>
+      }
+
       }
 
       @for (job of pending(); track job.key) {
@@ -106,6 +115,7 @@ interface PendingUpload {
                      (ngModelChange)="setCaption(item, $event)"
                      (blur)="pushUpdate(item)" />
 
+              @if (canEdit()) {
               <div class="mm-tools">
                 <button type="button" class="mm-tool" title="Move earlier" [disabled]="locked() || i === 0" (click)="move(i, -1)">&#8592;</button>
                 <button type="button" class="mm-tool" title="Move later" [disabled]="locked() || i === items().length - 1" (click)="move(i, 1)">&#8594;</button>
@@ -115,6 +125,7 @@ interface PendingUpload {
                 <a class="mm-tool" [href]="item.url" target="_blank" rel="noopener" title="Open the original">View</a>
                 <button type="button" class="mm-tool danger" title="Remove" [disabled]="locked()" (click)="remove(item)">Remove</button>
               </div>
+              }
             </div>
           }
         </div>
@@ -129,15 +140,23 @@ export class MediaManager implements ControlValueAccessor {
   private readonly store = inject(EventMediaService);
   private readonly snack = inject(MatSnackBar);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly auth = inject(AuthService);
 
   /** The record these items belong to. Null until it has been saved once. */
-  readonly eventId = input<string | null>(null);
+  readonly recordId = input<string | null>(null);
+
+  /** API segment the gallery hangs off — 'events' or 'gallery'. */
+  readonly resource = input<string>('events');
+
+  /** Only an Admin may change a gallery; everyone else sees it as it stands. */
+  readonly canEdit = this.auth.isAdmin;
 
   readonly items = signal<EventMedia[]>([]);
   readonly pending = signal<PendingUpload[]>([]);
   readonly dragging = signal(false);
   readonly linkOpen = signal(false);
-  readonly locked = signal(false);
+  private readonly disabledByForm = signal(false);
+  readonly locked = computed(() => this.disabledByForm() || !this.canEdit());
 
   linkValue = '';
 
@@ -147,7 +166,6 @@ export class MediaManager implements ControlValueAccessor {
 
   private onChange: (value: EventMedia[]) => void = () => undefined;
   private onTouched: () => void = () => undefined;
-  private disabled = false;
 
   // ------------------------------------------------------ ControlValueAccessor
 
@@ -158,15 +176,14 @@ export class MediaManager implements ControlValueAccessor {
   registerOnChange(fn: (value: EventMedia[]) => void): void { this.onChange = fn; }
   registerOnTouched(fn: () => void): void { this.onTouched = fn; }
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this.locked.set(isDisabled);
+    this.disabledByForm.set(isDisabled);
   }
 
   // ------------------------------------------------------------ adding files
 
   onDragOver(event: DragEvent): void {
     event.preventDefault();
-    if (!this.disabled) this.dragging.set(true);
+    if (!this.locked()) this.dragging.set(true);
   }
 
   onDragLeave(event: DragEvent): void {
@@ -177,7 +194,7 @@ export class MediaManager implements ControlValueAccessor {
   onDrop(event: DragEvent): void {
     event.preventDefault();
     this.dragging.set(false);
-    if (this.disabled) return;
+    if (this.locked()) return;
 
     const files = Array.from(event.dataTransfer?.files ?? []);
     if (files.length) this.accept(files);
@@ -223,7 +240,7 @@ export class MediaManager implements ControlValueAccessor {
 
   addLink(event?: Event): void {
     event?.preventDefault();
-    if (this.disabled) return;
+    if (this.locked()) return;
 
     const media = this.uploads.fromLink(this.linkValue);
     if (!media) {
@@ -240,8 +257,8 @@ export class MediaManager implements ControlValueAccessor {
     const next = normalise([...this.items(), { ...media, sortOrder: this.items().length }]);
     this.commit(next);
 
-    const id = this.eventId();
-    if (id) this.persist(this.store.add(id, next.find(m => m.id === media.id) ?? media));
+    const id = this.recordId();
+    if (id) this.persist(this.store.add(this.resource(), id, next.find(m => m.id === media.id) ?? media));
   }
 
   /**
@@ -267,28 +284,28 @@ export class MediaManager implements ControlValueAccessor {
   // ------------------------------------------------------------ editing
 
   setCaption(item: EventMedia, caption: string): void {
-    if (this.disabled) return;
+    if (this.locked()) return;
     this.commit(this.items().map(m => (m.id === item.id ? { ...m, caption } : m)));
   }
 
   pushUpdate(item: EventMedia): void {
-    const id = this.eventId();
+    const id = this.recordId();
     const current = this.items().find(m => m.id === item.id);
-    if (id && current) this.persist(this.store.update(id, current));
+    if (id && current) this.persist(this.store.update(this.resource(), id, current));
   }
 
   setCover(item: EventMedia): void {
-    if (this.disabled) return;
+    if (this.locked()) return;
     const next = this.items().map(m => ({ ...m, isCover: m.id === item.id }));
     this.commit(next);
 
-    const id = this.eventId();
+    const id = this.recordId();
     const cover = next.find(m => m.id === item.id);
-    if (id && cover) this.persist(this.store.update(id, cover));
+    if (id && cover) this.persist(this.store.update(this.resource(), id, cover));
   }
 
   move(index: number, by: number): void {
-    if (this.disabled) return;
+    if (this.locked()) return;
     const list = [...this.items()];
     const target = index + by;
     if (target < 0 || target >= list.length) return;
@@ -297,16 +314,16 @@ export class MediaManager implements ControlValueAccessor {
     const next = normalise(list.map((item, i) => ({ ...item, sortOrder: i })));
     this.commit(next);
 
-    const id = this.eventId();
-    if (id) this.persist(this.store.replaceAll(id, next));
+    const id = this.recordId();
+    if (id) this.persist(this.store.replaceAll(this.resource(), id, next));
   }
 
   remove(item: EventMedia): void {
-    if (this.disabled) return;
+    if (this.locked()) return;
     this.commit(this.items().filter(m => m.id !== item.id));
 
-    const id = this.eventId();
-    if (id) this.persist(this.store.remove(id, item.id));
+    const id = this.recordId();
+    if (id) this.persist(this.store.remove(this.resource(), id, item.id));
     this.store.releaseFromHost(item);
   }
 

@@ -19,7 +19,7 @@
             @if (field.type === 'media') {
               <div class="field full">
                 <label>{{ field.label }}</label>
-                <ts-media-manager [formControlName]="field.name" [eventId]="editingId()" />
+                <ts-media-manager [formControlName]="field.name" [recordId]="editingId()" [resource]="def.key" />
                 @if (field.hint) { <span class="muted" style="font-size:.72rem">{{ field.hint }}</span> }
               </div>
 

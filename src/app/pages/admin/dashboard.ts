@@ -69,6 +69,7 @@ interface ActivityRow {
         <div class="tile"><div class="k">Articles</div><div class="v">{{ s.articles }}</div><div class="s"><a routerLink="/admin/articles">Manage &rarr;</a></div></div>
         <div class="tile"><div class="k">Research Papers</div><div class="v">{{ s.researchPapers }}</div><div class="s"><a routerLink="/admin/research">Manage &rarr;</a></div></div>
         <div class="tile"><div class="k">Legal Topics</div><div class="v">{{ s.legalTopics }}</div><div class="s"><a routerLink="/admin/topics">Manage &rarr;</a></div></div>
+        <div class="tile"><div class="k">Gallery</div><div class="v">{{ s.galleryAlbums }}</div><div class="s"><a routerLink="/admin/gallery">Manage &rarr;</a></div></div>
         <div class="tile"><div class="k">Library</div><div class="v">{{ s.libraryResources }}</div><div class="s"><a routerLink="/admin/library">Manage &rarr;</a></div></div>
         <div class="tile"><div class="k">Profiles</div><div class="v">{{ s.profiles }}</div><div class="s"><a routerLink="/admin/profiles">Manage &rarr;</a></div></div>
 

@@ -70,8 +70,9 @@ export type MediaKind = 'Image' | 'Video';
 export type MediaProvider = 'imgbb' | 'cloudinary' | 'youtube' | 'vimeo' | 'external';
 
 /**
- * One photograph or video in an event gallery. The file itself lives with its
- * host; this record only says where it is and how it should be shown.
+ * One photograph or video in a gallery — an event's or an album's. The file
+ * itself lives with its host; this record only says where it is and how it
+ * should be shown.
  */
 export interface EventMedia {
   id: string;
@@ -111,6 +112,19 @@ export interface EventItem extends ContentEntity {
   organiser?: string;
   /** Gallery attachments, lowest sortOrder first. */
   mediaItems?: EventMedia[];
+}
+
+export interface GalleryAlbum extends ContentEntity {
+  summary: string;
+  body: string;
+  /** Event | Campus | Competition | Conference | People | Press | Other */
+  albumType: string;
+  albumDate: string;
+  venue?: string;
+  photographer?: string;
+  imageUrl?: string;
+  mediaItems?: EventMedia[];
+  viewCount: number;
 }
 
 export interface DebateArgument {
@@ -297,6 +311,7 @@ export interface DashboardStats {
   researchPapers: number;
   legalTopics: number;
   libraryResources: number;
+  galleryAlbums: number;
   profiles: number;
   users: number;
   newContacts: number;

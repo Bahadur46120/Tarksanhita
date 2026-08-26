@@ -8,12 +8,13 @@ import { EventMedia } from '../models/models';
 import { ApiService } from './api.service';
 
 /**
- * Keeps an event's gallery in step with the API.
+ * Keeps a record's gallery in step with the API. Events and gallery albums both
+ * carry one, so every call names the resource it is working on.
  *
- * The list is also part of the event record, so a change is never lost: it is
- * pushed to `/api/events/{id}/media` the moment it is made, and saved again with
- * the record when the editor presses Save. Where the media endpoints are not
- * deployed the immediate call is skipped quietly and the record carries the
+ * The list is also part of the record itself, so a change is never lost: it is
+ * pushed to `/api/{resource}/{id}/media` the moment it is made, and saved again
+ * with the record when the editor presses Save. Where the media endpoints are
+ * not deployed the immediate call is skipped quietly and the record carries the
  * change on its own.
  */
 @Injectable({ providedIn: 'root' })
@@ -23,44 +24,45 @@ export class EventMediaService {
   /** Flipped off for the session the first time the endpoint answers "not there". */
   private endpointAvailable = environment.media.useMediaEndpoint;
 
-  private path(eventId: string, mediaId?: string): string {
-    return mediaId ? `events/${eventId}/media/${mediaId}` : `events/${eventId}/media`;
+  private path(resource: string, id: string, mediaId?: string): string {
+    const base = `${resource}/${id}/media`;
+    return mediaId ? `${base}/${mediaId}` : base;
   }
 
   /** Reads the gallery back from the API; an empty list when it cannot be read. */
-  list(eventId: string): Observable<EventMedia[]> {
+  list(resource: string, id: string): Observable<EventMedia[]> {
     return this.guard(
-      this.api.http.get<EventMedia[]>(`${this.api.base}/${this.path(eventId)}`, { context: silent() })
+      this.api.http.get<EventMedia[]>(`${this.api.base}/${this.path(resource, id)}`, { context: silent() })
     ).pipe(map(items => normalise(items ?? [])));
   }
 
   /** Attaches one item. Resolves to null when the endpoint is not available. */
-  add(eventId: string, media: EventMedia): Observable<EventMedia | null> {
-    if (!this.canCall(eventId)) return of(null);
+  add(resource: string, id: string, media: EventMedia): Observable<EventMedia | null> {
+    if (!this.canCall(id)) return of(null);
     return this.queue(() =>
-      this.api.http.post<EventMedia>(`${this.api.base}/${this.path(eventId)}`, media, { context: silent() })
+      this.api.http.post<EventMedia>(`${this.api.base}/${this.path(resource, id)}`, media, { context: silent() })
     );
   }
 
-  update(eventId: string, media: EventMedia): Observable<EventMedia | null> {
-    if (!this.canCall(eventId)) return of(null);
+  update(resource: string, id: string, media: EventMedia): Observable<EventMedia | null> {
+    if (!this.canCall(id)) return of(null);
     return this.queue(() =>
-      this.api.http.put<EventMedia>(`${this.api.base}/${this.path(eventId, media.id)}`, media, { context: silent() })
+      this.api.http.put<EventMedia>(`${this.api.base}/${this.path(resource, id, media.id)}`, media, { context: silent() })
     );
   }
 
-  remove(eventId: string, mediaId: string): Observable<unknown> {
-    if (!this.canCall(eventId)) return of(null);
+  remove(resource: string, id: string, mediaId: string): Observable<unknown> {
+    if (!this.canCall(id)) return of(null);
     return this.queue(() =>
-      this.api.http.delete(`${this.api.base}/${this.path(eventId, mediaId)}`, { context: silent() })
+      this.api.http.delete(`${this.api.base}/${this.path(resource, id, mediaId)}`, { context: silent() })
     );
   }
 
   /** Replaces the whole list — the cheapest way to persist a reorder. */
-  replaceAll(eventId: string, items: EventMedia[]): Observable<EventMedia[] | null> {
-    if (!this.canCall(eventId)) return of(null);
+  replaceAll(resource: string, id: string, items: EventMedia[]): Observable<EventMedia[] | null> {
+    if (!this.canCall(id)) return of(null);
     return this.queue(() =>
-      this.api.http.put<EventMedia[]>(`${this.api.base}/${this.path(eventId)}`, normalise(items), { context: silent() })
+      this.api.http.put<EventMedia[]>(`${this.api.base}/${this.path(resource, id)}`, normalise(items), { context: silent() })
     );
   }
 
@@ -78,8 +80,8 @@ export class EventMediaService {
 
   // ------------------------------------------------------------ internals
 
-  private canCall(eventId: string): boolean {
-    return this.endpointAvailable && !!eventId;
+  private canCall(id: string): boolean {
+    return this.endpointAvailable && !!id;
   }
 
   /**

@@ -203,16 +203,34 @@ export const routes: Routes = [
       },
 
       // ==========================================================
-      // LIBRARY
+      // GALLERY
       // ==========================================================
       {
-        path: 'library',
+        path: 'gallery',
         loadComponent: () =>
-          import('./pages/library/library')
-            .then(m => m.LibraryPage),
+          import('./pages/gallery/gallery')
+            .then(m => m.GalleryPage),
 
-        title: 'Digital Library — Tarksanhita'
+        title: 'Gallery — Tarksanhita'
       },
+
+      {
+        path: 'gallery/:slug',
+        loadComponent: () =>
+          import('./pages/shared-pages/content-detail')
+            .then(m => m.ContentDetailPage),
+
+        data: {
+          resource: 'gallery',
+          kind: 'album',
+          section: 'Gallery',
+          parent: '/gallery'
+        }
+      },
+
+      // The reference library has come off the public site; its old address is
+      // kept pointing at the Gallery so existing links and bookmarks still land.
+      { path: 'library', redirectTo: 'gallery', pathMatch: 'full' },
 
       // ==========================================================
       // EVENTS

@@ -1,8 +1,14 @@
-# Event Media — Images & Video
+# Gallery — Images & Video
 
-Every event can carry a gallery of photographs and videos. Files are uploaded
-straight from the admin's browser to a media host; only the record of where each
-file lives travels through the Tarksanhita API.
+Two kinds of record carry a gallery: **events**, and standalone **gallery
+albums** created in the admin panel. The public `/gallery` page shows both.
+Files are uploaded straight from the admin's browser to a media host; only the
+record of where each file lives travels through the Tarksanhita API.
+
+**Only an Administrator can add, edit or remove gallery media.** Editors may
+still write the surrounding record — an event's date and venue, an album's
+title — but the API refuses their uploads, and the editor shows them the gallery
+read-only rather than controls that would fail.
 
 | Asset  | Host       | Why |
 |--------|------------|-----|
@@ -82,15 +88,19 @@ further work.
 
 ## 3. API endpoints
 
-All live on `EventsController`. Reads are anonymous; writes need Admin or Editor.
+`MediaContentControllerBase<T>` carries these; `EventsController` and
+`GalleryController` both inherit them, so `{resource}` below is `events` or
+`gallery`. Reads are anonymous; **every write requires the Admin role**.
 
 | Method | Route | Purpose |
 |--------|-------|---------|
-| `GET`    | `/api/events/{id}/media` | The gallery, in display order. |
-| `POST`   | `/api/events/{id}/media` | Attach one item. Body is an `EventMedia`. Appends, assigns `sortOrder`, stamps the actor. |
-| `PUT`    | `/api/events/{id}/media/{mediaId}` | Edit caption, cover flag or position. |
-| `PUT`    | `/api/events/{id}/media` | Replace the whole list — used for reordering. |
-| `DELETE` | `/api/events/{id}/media/{mediaId}` | Detach one item. |
+| `GET`    | `/api/{resource}/{id}/media` | The gallery, in display order. |
+| `POST`   | `/api/{resource}/{id}/media` | Attach one item. Body is an `EventMedia`. Appended with `$push`, so simultaneous uploads cannot overwrite each other. |
+| `PUT`    | `/api/{resource}/{id}/media/{mediaId}` | Edit caption, cover flag or position. |
+| `PUT`    | `/api/{resource}/{id}/media` | Replace the whole list — used for reordering. |
+| `DELETE` | `/api/{resource}/{id}/media/{mediaId}` | Detach one item. |
+
+Albums also have `GET /api/gallery/recent?take=12` for the landing page.
 
 Two behaviours worth knowing:
 
@@ -107,7 +117,8 @@ Two behaviours worth knowing:
 
 ## 4. How the admin panel uses it
 
-Admin → Events → edit an event → **Photographs & video**.
+Admin → **Events** → edit an event → *Photographs & video*, or
+Admin → **Gallery** → new album → *Photographs & video*.
 
 - Drop files on the panel or press *Choose files*; several at once is fine.
 - Each upload shows its own progress bar and can fail on its own without
@@ -130,12 +141,32 @@ record. No error is put in front of the editor.
 
 ## 5. Public display
 
+- `/gallery` — the wall of tiles. Albums and events with media are merged and
+  sorted newest first, with All / Photographs / Video filters and a search box.
+- `/gallery/{slug}` — one album: description, then the thumbnail grid.
 - `/events` — cards show the cover image, with a `▶ n` marker when the gallery
   holds video.
-- `/events/{slug}` — a thumbnail grid under the agenda. Clicking opens a
-  lightbox: arrow keys or the on-screen arrows to move, Esc to close. Uploaded
-  video plays in the browser's own player; YouTube and Vimeo play in the host's
-  embed.
+- `/events/{slug}` — the same grid under the agenda.
 
-The gallery component reads `mediaItems` from any record, so pointing another
-content type at it later needs only the field on that entity.
+Clicking any thumbnail opens a lightbox: arrow keys or the on-screen arrows to
+move, Esc to close. Uploaded video plays in the browser's own player; YouTube and
+Vimeo play in the host's embed.
+
+The gallery component reads `mediaItems` from any record, so pointing a third
+content type at it later needs only `IMediaOwner` on that entity and a controller
+extending `MediaContentControllerBase<T>`.
+
+---
+
+## 6. What happened to the Library
+
+The reference library has come off the public site: `/library` now redirects to
+`/gallery`, and the navigation carries **Gallery** where Library used to be.
+Articles and Research Papers moved into a new **Publications** menu so neither is
+left without a way in. The Library content type is untouched in the admin panel
+and in the database — nothing has been deleted.
+
+One loose end: `institution.html` still has a Library section with eight tiles
+(Books, Bare Acts, Case Laws and so on) pointing at `/library`. They redirect to
+the Gallery, which reads oddly. That section wants either removing or repointing
+— it was left alone rather than changed without asking.

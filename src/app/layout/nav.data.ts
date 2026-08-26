@@ -35,7 +35,7 @@ export const MAIN_NAV: NavItem[] = [
       { label: 'Active Debates', link: '/debates' },
       { label: 'Debate Archive', link: '/debates' },
       { label: 'Moot Court', link: '/events' },
-      { label: 'Rules & Format', link: '/library' }
+      { label: 'Rules & Format', link: '/articles' }
     ]
   },
   {
@@ -49,16 +49,23 @@ export const MAIN_NAV: NavItem[] = [
     ]
   },
   {
-    label: 'Library',
-    link: '/library',
+    label: 'Gallery',
+    link: '/gallery',
     children: [
-      { label: 'Digital Library', link: '/library' },
-      { label: 'Bare Acts', link: '/library' },
-      { label: 'Case Laws', link: '/library' },
-      // Kept here so commentary and scholarship stay reachable now that
-      // Research and Publications have come off the main navigation.
+      { label: 'All Albums', link: '/gallery' },
+      { label: 'Event Photographs', link: '/gallery' },
+      { label: 'Video', link: '/gallery' }
+    ]
+  },
+  {
+    // Commentary and scholarship kept their own section when the Library came
+    // off the navigation, so neither is left without a way in.
+    label: 'Publications',
+    link: '/articles',
+    children: [
       { label: 'Articles & Commentary', link: '/articles' },
-      { label: 'Research Papers', link: '/research' }
+      { label: 'Research Papers', link: '/research' },
+      { label: 'News', link: '/news' }
     ]
   },
   { label: 'Notices', link: '/notices' },
@@ -71,7 +78,7 @@ export const QUICK_LINKS: NavChild[] = [
   { label: 'Propose a Motion', link: '/debates/start' },
   { label: 'Upcoming Events', link: '/events' },
   { label: 'Notices', link: '/notices' },
-  { label: 'Library', link: '/library' },
+  { label: 'Gallery', link: '/gallery' },
   { label: 'Articles', link: '/articles' },
   { label: 'News', link: '/news' },
   { label: 'Contact', link: '/contact' }

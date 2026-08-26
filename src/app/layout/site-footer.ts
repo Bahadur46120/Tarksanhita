@@ -40,7 +40,7 @@ import { RouterLink } from '@angular/router';
               <li><a routerLink="/debates">Active Debates</a></li>
               <li><a routerLink="/events">Upcoming Events</a></li>
               <li><a routerLink="/notices">Notices</a></li>
-              <li><a routerLink="/library">Library</a></li>
+              <li><a routerLink="/gallery">Gallery</a></li>
               <li><a routerLink="/contact">Contact</a></li>
               <li><a routerLink="/careers">Careers</a></li>
             </ul>
@@ -52,7 +52,7 @@ import { RouterLink } from '@angular/router';
               <li><a routerLink="/institution">The Institution</a></li>
               <li><a routerLink="/faculty">Governing Council</a></li>
               <li><a routerLink="/events">Moot Courts &amp; Competitions</a></li>
-              <li><a routerLink="/library">Digital Library</a></li>
+              <li><a routerLink="/gallery">Photographs &amp; Video</a></li>
               <li><a routerLink="/research">Research &amp; Commentary</a></li>
             </ul>
           </div>

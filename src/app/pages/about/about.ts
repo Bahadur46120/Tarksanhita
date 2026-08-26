@@ -106,7 +106,7 @@ import { AvatarArt, PageBanner, SectionTitle } from '../../shared/components/ui'
                   <li><a routerLink="/academics">Debate formats &amp; subject benches</a></li>
                   <li><a routerLink="/research">Four standing research centres</a></li>
                   <li><a routerLink="/debates">Live and archived motions</a></li>
-                  <li><a routerLink="/library">Open reference library</a></li>
+                  <li><a routerLink="/research">Open research &amp; commentary</a></li>
                   <li><a routerLink="/faculty">Faculty directory</a></li>
                   <li><a routerLink="/contact">Contact the Centre</a></li>
                 </ul>
